@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Johannespassie</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style type="text/css">
+      body {
+        margin: 0px;
+        background-color: black;
+      }
+      #viewport {
+        width: 3840px;
+        height: 720px;
+        position: relative;
+        overflow: hidden;
+      }
+      #scenery {
+        width: 5300px;
+        height: 3240px;
+        background-image: url(Hans_Memling_Passione.jpg);
+        background-size: 100%; 
+        position: absolute;
+        transition: all 12s ease;
+      }
+      #room {
+        width: 100%;
+        height: 100%;
+      }
+      #viewport>div>div {
+        position: absolute;
+        width: 300px;
+        /* height: 200px; */
+        color: white;
+        background-color: black;
+        box-shadow: 0 0 25px 12px black;
+      }
+      #viewport>div>div.jezus {
+        color: black;
+        background-color: white;
+        box-shadow: 0 0 25px 12px white;
+      }
+      p {
+        margin: 10px;
+      }
+      p.rol {
+        font-variant: small-caps;
+      }
+      p.de {
+        font-style: italic;
+      }
+      #scenery.intro {
+        bottom: -335%;
+        left: 0%;
+      }
+      .intro.koor { bottom: 45%; left: 2%; }
+      #scenery.olijven {
+        bottom: -26%;
+        left: -7%;
+      }
+      .olijven.evangelist { bottom: 15%; left: 5%; }
+      .olijven.jezus { bottom: 23%; left: 10%; }
+      .olijven.volk { bottom: 15%; left: 21%; }
+      .olijven.koor { bottom: 7%; left: 23%; }
+    </style>
+    <link rel="icon" type="image/png" href="">
+    <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+    </script>
+  </head>
+  <body>
+    <div id="viewport">
+      <div id="scenery" class="intro">
+        <div class="olijven evangelist"></div>
+        <div class="olijven jezus"></div>
+        <div class="olijven volk"></div>
+        <div class="olijven koor"></div>
+      </div>
+      <div id="room">
+        <div class="intro koor"></div>
+      </div>
+    </div>
+    <script>
+      // read the hash string, which indicates in seconds where to start playing
+      var hash = 0;
+      if (window.location.hash) {
+        var hash = window.location.hash.substring(1); // remove '#' character
+      }
+      $(function(){
+        function perform(a) {
+          switch (a.f) {
+            case "show":
+              $('.'+a.scene+'.'+a.rol+' .rol').text(a.rol);            
+              $('.'+a.scene+'.'+a.rol+' .de').text(a.de);            
+              $('.'+a.scene+'.'+a.rol+' .nl').text(a.nl);            
+              $('.'+a.scene+'.'+a.rol).fadeIn();
+              console.log("action performed: " + JSON.stringify(a));
+              break;
+            case "hide":
+              $('.'+a.scene+'.'+a.rol).fadeOut();
+              console.log("action performed: " + JSON.stringify(a));
+              break;
+            case "move":
+              $('#scenery').attr('class',a.scene);
+              console.log("action performed: " + JSON.stringify(a));
+              break;
+          }
+          return;
+        }
+        function schedule(a) {
+          var offset = 1000 * (a.h * 3600 + a.m * 60 + a.s) - 1000 * hash;
+          if (offset < 0) {
+            perform(a);
+          } else {
+            setTimeout(function() {
+              perform(a);
+            }, offset);
+          }
+          return;
+        }
+        // hide all placeholders
+        $('#viewport > div > div').hide();
+        // add text fields to all placeholders
+        $('<p class="rol"/>').appendTo('#viewport > div > div');
+        $('<p class="de"/>').appendTo('#viewport > div > div');
+        $('<p class="nl"/>').appendTo('#viewport > div > div');
+        // prepare music
+        var audio = document.createElement('audio');
+        audio.src = "johannespassion.mp3";
+        audio.addEventListener('loadedmetadata', function () { // firefox doesn't send canplay event
+          audio.currentTime = hash;
+          audio.play();
+          audio.addEventListener('playing', function () {
+            // schedule events
+            var t0 = performance.now();
+            script.script.forEach(schedule);
+            var t1 = performance.now();
+            console.log("all actions scheduled in " + (t1 - t0) + " milliseconds");
+          });
+        });
+      });
+    </script>
+    <script>
+var script = 
+{
+  "script" : [
+    {
+      "h" : 0,
+      "m" : 0,
+      "s" : 59,
+      "scene" : "intro",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Herr, unser Herrscher, dessen Ruhm\r\nin allen Landen herrlich ist!",
+      "nl" : "Heer, onze Heerser, wiens roem\r\nin alle landen heerlijk is!"
+    },
+    {
+      "h" : 0,
+      "m" : 3,
+      "s" : 10,
+      "scene" : "intro",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Zeig uns durch deine Passion,\r\nDaß du, der wahre Gottessohn,\r\nZu aller Zeit,\r\nAuch in der größten Niedrigkeit,\r\nVerherrlicht worden bist!",
+      "nl" : "Toon ons door Uw lijden\r\ndat Gij, de ware Zoon van God\r\nte allen tijde,\r\nook in de uiterste onaanzienlijkheid,\r\nverheerlijkt bent."
+    },
+    {
+      "h" : 0,
+      "m" : 5,
+      "s" : 10,
+      "scene" : "intro",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : ""
+    },
+    {
+      "h" : 0,
+      "m" : 6,
+      "s" : 17,
+      "scene" : "intro",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Herr, unser Herrscher, dessen Ruhm\r\nin allen Landen herrlich ist!",
+      "nl" : "Heer, onze Heerser, wiens roem\r\nin alle landen heerlijk is!"
+    },
+    {
+      "h" : 0,
+      "m" : 8,
+      "s" : 28,
+      "scene" : "olijven",
+      "rol" : "",
+      "f" : "move",
+      "de" : "",
+      "nl" : ""
+    },
+    {
+      "h" : 0,
+      "m" : 8,
+      "s" : 30,
+      "scene" : "intro",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : ""
+    },
+    {
+      "h" : 0,
+      "m" : 8,
+      "s" : 36,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Jesus ging mit seinen Jüngern über den Bach Kidron, da war ein Garten, darein ging Jesus und seine Jünger. ",
+      "nl" : "Jezus ging met zijn discipelen naar de overzijde van de beek Kidron, waar een hof was, die Hij met zijn discipelen binnenging."
+    },
+    {
+      "h" : 0,
+      "m" : 8,
+      "s" : 52,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Judas aber, der ihn verriet, wußte den Ort auch, denn Jesus versammlete sich oft daselbst mit seinen Jüngern. ",
+      "nl" : "En ook Judas, zijn verrrader, wist die plaats, omdat Jezus daar dikwijls was samengekomen met zijn discipelen. "
+    },
+    {
+      "h" : 0,
+      "m" : 9,
+      "s" : 8,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da nun Judas zu sich hatte genommen die Schar und der Hohenpriester und Pharisäer Diener, kommt er dahin mit Fackeln, Lampen und mit Waffen. ",
+      "nl" : "Judas dan kwam daar, die een afdeling soldaten tot zijn beschikking had gekregen en dienaars van de overpriesters en de Farizeeën, voorzien van lantaarns, fakkels en wapenen."
+    },
+    {
+      "h" : 0,
+      "m" : 9,
+      "s" : 26,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Als nun Jesus wußte alles, was ihm begegnen sollte, ging er hinaus und sprach zu ihnen:",
+      "nl" : "Jezus dan, alles wetende, wat over Hem komen zou, kwam naar voren en zeide tot hen:"
+    },
+    {
+      "h" : 0,
+      "m" : 9,
+      "s" : 41,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : ""
+    },
+    {
+      "h" : 0,
+      "m" : 9,
+      "s" : 39,
+      "scene" : "olijven",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Wen suchet ihr?",
+      "nl" : "Wie zoekt gij?"
+    },
+    {
+      "h" : 0,
+      "m" : 9,
+      "s" : 44,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Sie antworteten ihm:",
+      "nl" : "Zij antwoordden Hem:"
+    },
+    {
+      "h" : 0,
+      "m" : 9,
+      "s" : 48,
+      "scene" : "olijven",
+      "rol" : "volk",
+      "f" : "show",
+      "de" : "Jesum von Nazareth!",
+      "nl" : "Jezus van Nazareth!"
+    },
+    {
+      "h" : 0,
+      "m" : 9,
+      "s" : 54,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Jesus spricht zu ihnen:",
+      "nl" : "Jezus zeide tot hen:"
+    },
+    {
+      "h" : 0,
+      "m" : 9,
+      "s" : 57,
+      "scene" : "olijven",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Ich bins.",
+      "nl" : "Ik ben het."
+    },
+    {
+      "h" : 0,
+      "m" : 9,
+      "s" : 59,
+      "scene" : "olijven",
+      "rol" : "volk",
+      "f" : "hide",
+      "de" : "",
+      "nl" : ""
+    },
+    {
+      "h" : 0,
+      "m" : 10,
+      "s" : 1,
+      "scene" : "olijven",
+      "rol" : "jezus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : ""
+    },
+    {
+      "h" : 0,
+      "m" : 10,
+      "s" : 1,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Judas aber, der ihn verriet, stund auch bei ihnen. ",
+      "nl" : "En ook Judas, zijn verrader, stond bij hen."
+    },
+    {
+      "h" : 0,
+      "m" : 10,
+      "s" : 10,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Als nun Jesus zu ihnen sprach: Ich bins, wichen sie zurücke und fielen zu Boden. ",
+      "nl" : "Toen Hij dan tot hen zeide: Ik ben het, deinsden zij terug en vielen ter aarde."
+    },
+    {
+      "h" : 0,
+      "m" : 10,
+      "s" : 22,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da fragete er sie abermal:",
+      "nl" : "Wederom dan stelde Hij hun de vraag:"
+    },
+    {
+      "h" : 0,
+      "m" : 10,
+      "s" : 26,
+      "scene" : "olijven",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Wen suchet ihr?",
+      "nl" : "Wie zoekt gij?"
+    },
+    {
+      "h" : 0,
+      "m" : 10,
+      "s" : 29,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Sie aber sprachen:",
+      "nl" : "En zij zeiden:"
+    },
+    {
+      "h" : 0,
+      "m" : 10,
+      "s" : 31,
+      "scene" : "olijven",
+      "rol" : "volk",
+      "f" : "show",
+      "de" : "Jesum von Nazareth!",
+      "nl" : "Jezus van Nazareth!"
+    },
+    {
+      "h" : 0,
+      "m" : 10,
+      "s" : 41,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Jesus antwortete:",
+      "nl" : "Jezus antwoordde:"
+    },
+    {
+      "h" : 0,
+      "m" : 10,
+      "s" : 44,
+      "scene" : "olijven",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Ich habs euch gesagt, daß ichs sei.",
+      "nl" : "Ik zeide u, dat Ik het ben."
+    },
+    {
+      "h" : 0,
+      "m" : 10,
+      "s" : 50,
+      "scene" : "olijven",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Suchet ihr denn mich, so lasset diese gehen!",
+      "nl" : "Indien gij dan Mij zoekt, laat dezen heengaan;"
+    },
+    {
+      "h" : 0,
+      "m" : 10,
+      "s" : 56,
+      "scene" : "olijven",
+      "rol" : "volk",
+      "f" : "hide",
+      "de" : "",
+      "nl" : ""
+    },
+    {
+      "h" : 0,
+      "m" : 10,
+      "s" : 58,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : ""
+    },
+    {
+      "h" : 0,
+      "m" : 11,
+      "s" : 0,
+      "scene" : "olijven",
+      "rol" : "jezus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : ""
+    },
+    {
+      "h" : 0,
+      "m" : 11,
+      "s" : 3,
+      "scene" : "olijven",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "O große Lieb, o Lieb ohn alle Maße,\nDie dich gebracht auf diese Marterstraße!",
+      "nl" : "O grote liefde, o liefde zonder maat\r\ndie u op deze lijdensweg gebracht heeft!"
+    },
+    {
+      "h" : 0,
+      "m" : 11,
+      "s" : 24,
+      "scene" : "olijven",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Ich lebte mit der Welt in Lust und Freuden,\r\nUnd du mußt leiden!",
+      "nl" : "Ik leefde in een wereld vol lust en vreugde,\r\nterwijl Gij moest lijden!"
+    },
+    {
+      "h" : 0,
+      "m" : 11,
+      "s" : 46,
+      "scene" : "olijven",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : ""
+    }
+  ]}
+    </script>
+  </body>
+</html>
