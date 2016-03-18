@@ -110,8 +110,7 @@
         left: ;
       }
       .tomb.evangelist { bottom: 10%; left: 20% }
-      .tomb.koor { bottom: 10%; left: 20% }
-      .tomb.met-dank-aan { bottom: 10%; left: 20% }
+
     </style>
     <link rel="icon" type="image/png" href="">
     <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
@@ -194,36 +193,58 @@ var script =
   "script" : [
     {
       "h" : 0,
-      "m" : "",
-      "s" : "",
-      "scene" : "",
+      "m" : 0,
+      "s" : 0,
+      "scene" : "intro",
+      "rol" : "",
+      "f" : "move",
+      "de" : "",
+      "nl" : "",
+      "time" : 0
+    },
+    {
+      "h" : 0,
+      "m" : 0,
+      "s" : 0,
+      "scene" : "intro",
       "rol" : "titel",
-      "f" : "",
+      "f" : "show",
       "de" : "",
       "nl" : "Johannespassie - J.S. Bach",
       "time" : 0
     },
     {
       "h" : 0,
-      "m" : "",
-      "s" : "",
-      "scene" : "",
+      "m" : 0,
+      "s" : 20,
+      "scene" : "intro",
       "rol" : "titel",
-      "f" : "",
+      "f" : "show",
       "de" : "",
       "nl" : "Taferelen uit de Passie van Christus - Hans Memling",
-      "time" : 0
+      "time" : 20
     },
     {
       "h" : 0,
-      "m" : "",
-      "s" : "",
-      "scene" : "",
+      "m" : 0,
+      "s" : 40,
+      "scene" : "intro",
       "rol" : "titel",
-      "f" : "",
+      "f" : "show",
       "de" : "",
       "nl" : "johannespassion.gelovenleren.net",
-      "time" : 0
+      "time" : 40
+    },
+    {
+      "h" : 0,
+      "m" : 0,
+      "s" : 59,
+      "scene" : "intro",
+      "rol" : "titel",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 59
     },
     {
       "h" : 0,
@@ -917,6 +938,17 @@ var script =
       "de" : "",
       "nl" : "",
       "time" : 1397
+    },
+    {
+      "h" : 0,
+      "m" : 23,
+      "s" : 27,
+      "scene" : "palace",
+      "rol" : "",
+      "f" : "move",
+      "de" : "",
+      "nl" : "",
+      "time" : 1407
     },
     {
       "h" : 0,
@@ -2357,7 +2389,7 @@ var script =
       "f" : "hide",
       "de" : "",
       "nl" : "",
-      "time" : ""
+      "time" : 3617
     },
     {
       "h" : 1,
@@ -2390,7 +2422,7 @@ var script =
       "f" : "hide",
       "de" : "",
       "nl" : "",
-      "time" : ""
+      "time" : 3678
     },
     {
       "h" : 1,
@@ -2517,7 +2549,51 @@ var script =
       "h" : 1,
       "m" : 4,
       "s" : 39,
-      "scene" : "golgotha",
+      "scene" : "palace",
+      "rol" : "hogepriesters",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3879
+    },
+    {
+      "h" : 1,
+      "m" : 4,
+      "s" : 39,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3879
+    },
+    {
+      "h" : 1,
+      "m" : 4,
+      "s" : 39,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3879
+    },
+    {
+      "h" : 1,
+      "m" : 4,
+      "s" : 29,
+      "scene" : "carrying",
+      "rol" : "",
+      "f" : "move",
+      "de" : "",
+      "nl" : "",
+      "time" : 3869
+    },
+    {
+      "h" : 1,
+      "m" : 4,
+      "s" : 39,
+      "scene" : "carrying",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Da überantwortete er ihn, daß er gekreuziget würde. Sie nahmen aber Jesum und führeten ihn hin. Und er trug sein Kreuz und ging hinaus zur Stätte, die da heißet Schädelstätt, welche heißet auf Ebräisch: Golgatha.",
@@ -2528,18 +2604,18 @@ var script =
       "h" : 1,
       "m" : 5,
       "s" : 24,
-      "scene" : "golgotha",
+      "scene" : "carrying",
       "rol" : "evangelist",
       "f" : "hide",
       "de" : "",
       "nl" : "",
-      "time" : ""
+      "time" : 3924
     },
     {
       "h" : 1,
       "m" : 5,
       "s" : 54,
-      "scene" : "golgotha",
+      "scene" : "carrying",
       "rol" : "koor",
       "f" : "show",
       "de" : "Eilt, ihr angefochtnen Seelen,\r\nGeht aus euren Marterhöhlen,",
@@ -2548,633 +2624,1149 @@ var script =
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
-      "scene" : "golgotha",
+      "m" : 6,
+      "s" : 28,
+      "scene" : "carrying",
       "rol" : "koor",
       "f" : "show",
       "de" : "Eilt – Wohin? – nach Golgatha!\r\nNehmet an des Glaubens Flügel,\r\nFlieht – Wohin? – zum Kreuzeshügel,\r\nEure Wohlfahrt blüht allda!",
       "nl" : "Haast u – Waarheen?– naar Golgotha!\r\nGebruik de vleugels van het geloof,\r\nvlucht – Waarheen?– naar de heuvel van het kruis,\r\nuw welzijn bloeit aldaar.",
-      "time" : 3600
+      "time" : 3988
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 7,
+      "s" : 59,
+      "scene" : "carrying",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 4079
+    },
+    {
+      "h" : 1,
+      "m" : 8,
+      "s" : 9,
+      "scene" : "carrying",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Eilt, ihr angefochtnen Seelen,\r\nGeht aus euren Marterhöhlen,",
+      "nl" : "Haast u, zwaar beproefde zielen,\r\nverlaat uw martelaarsholen.",
+      "time" : 4089
+    },
+    {
+      "h" : 1,
+      "m" : 8,
+      "s" : 47,
+      "scene" : "carrying",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Eilt – Wohin? – nach Golgatha!",
+      "nl" : "Haast u – Waarheen?– naar Golgotha!",
+      "time" : 4127
+    },
+    {
+      "h" : 1,
+      "m" : 9,
+      "s" : 12,
+      "scene" : "carrying",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 4152
+    },
+    {
+      "h" : 1,
+      "m" : 9,
+      "s" : 32,
+      "scene" : "golgotha",
+      "rol" : "",
+      "f" : "move",
+      "de" : "",
+      "nl" : "",
+      "time" : 4172
+    },
+    {
+      "h" : 1,
+      "m" : 9,
+      "s" : 42,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Allda kreuzigten sie ihn, und mit ihm zween andere zu beiden Seiten, Jesum aber mitten inne.",
       "nl" : "Daar kruisigden zij Hem, en met Hem twee anderen, aan weerszijden één, en Jezus in het midden.",
-      "time" : 3600
+      "time" : 4182
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 10,
+      "s" : 6,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Pilatus aber schrieb eine Überschrift und satzte sie auf das Kreuz, und war geschrieben: «Jesus von Nazareth, der Juden König». Diese Überschrift lasen viel Juden, denn die Stätte war nahe bei der Stadt, da Jesus gekreuziget ist. Und es war geschrieben auf hebräische, griechische und lateinische Sprache.",
       "nl" : "En Pilatus liet ook een opschrift schrijven en op het kruis plaatsen; er was geschreven: «Jezus, de Nazoreeër, de Koning der Joden». Dit opschrift dan lazen vele der Joden; want de plaats, waar Jezus gekruisigd werd, was dicht bij de stad, en het was geschreven in het Hebreeuws, in het Latijn en in het Grieks.",
-      "time" : 3600
+      "time" : 4206
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 10,
+      "s" : 58,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Da sprachen die Hohenpriester der Juden zu Pilato:",
       "nl" : "De overpriesters der Joden dan zeiden tot Pilatus:",
-      "time" : 3600
+      "time" : 4258
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 11,
+      "s" : 3,
       "scene" : "golgotha",
       "rol" : "hogepriesters",
       "f" : "show",
       "de" : "Schreibe nicht: der Juden König, sondern daß er gesaget habe: Ich bin der Juden König.",
       "nl" : "Schrijf niet: De Koning der Joden, maar dat Hij gezegd heeft: Ik ben de Koning der Joden.",
-      "time" : 3600
+      "time" : 4263
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 11,
+      "s" : 36,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Pilatus antwortet:",
       "nl" : "Pilatus antwoordde:",
-      "time" : 3600
+      "time" : 4296
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 11,
+      "s" : 40,
       "scene" : "golgotha",
       "rol" : "pilatus",
       "f" : "show",
       "de" : "Was ich geschrieben habe, das habe ich geschrieben.",
       "nl" : "Wat ik geschreven heb, dat heb ik geschreven.",
-      "time" : 3600
+      "time" : 4300
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 11,
+      "s" : 48,
+      "scene" : "golgotha",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 4308
+    },
+    {
+      "h" : 1,
+      "m" : 11,
+      "s" : 53,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
       "de" : "In meines Herzens Grunde,\r\nDein Nam und Kreuz allein\r\nFunkelt all Zeit und Stunde,\r\nDrauf kann ich fröhlich sein.",
       "nl" : "In de grond van mijn hart\r\nfonkelt iedere tijd en uur\r\nUw naam en kruis alleen,\r\ndaarom kan ik vrolijk zijn.",
-      "time" : 3600
+      "time" : 4313
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 12,
+      "s" : 13,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
       "de" : "Erschein mir in dem Bilde\r\nZu Trost in meiner Not,\r\nWie du, Herr Christ, so milde,\r\nDich hast geblut’ zu Tod!",
       "nl" : "Verschijn mij in een visioen,\r\ntot troost in mijn nood\r\nhoe Gij, Heer Christus, zo mild\r\nUzelf hebt laten doodbloeden.",
-      "time" : 3600
+      "time" : 4333
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 12,
+      "s" : 40,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 4360
+    },
+    {
+      "h" : 1,
+      "m" : 12,
+      "s" : 58,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Die Kriegsknechte aber, da sie Jesum gekreuziget hatten, nahmen seine Kleider und machten vier Teile, einem jeglichen Kriegesknechte sein Teil, dazu auch den Rock. Der Rock aber war ungenähet, von oben an gewürket durch und durch. ",
       "nl" : "Toen dan de soldaten Jezus gekruisigd hadden, namen zij zijn klederen en maakten daarvan vier delen, voor iedere soldaat één deel, en zijn onderkleed. Dit kleed nu was zonder naad, aan één stuk geweven. ",
-      "time" : 3600
+      "time" : 4378
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 13,
+      "s" : 31,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Da sprachen sie untereinander:",
       "nl" : "Zij zeiden dan tot elkander:",
-      "time" : 3600
+      "time" : 4411
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 13,
+      "s" : 35,
       "scene" : "golgotha",
       "rol" : "soldaten",
       "f" : "show",
       "de" : "Lasset uns den nicht zerteilen, sondern darum losen, wes er sein soll.",
       "nl" : "Laten wij dit niet scheuren, maar erom loten, voor wie het zijn zal;",
-      "time" : 3600
+      "time" : 4415
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 14,
+      "s" : 58,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Auf daß erfüllet würde die Schrift, die da saget: «Sie haben meine Kleider unter sich geteilet und haben über meinen Rock das Los geworfen.» Solches taten die Kriegesknechte.",
       "nl" : "zodat het schriftwoord vervuld werd: «Zij hebben mijn klederen onder elkander verdeeld en overmijn kleding hebben zij het lot geworpen». Dit hebben dan de soldaten gedaan.",
-      "time" : 3600
+      "time" : 4498
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 15,
+      "s" : 30,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Es stund aber bei dem Kreuze Jesu seine Mutter und seiner Mutter Schwester, Maria, Kleophas Weib, und Maria Magdalena. Da nun Jesus seine Mutter sahe und den Jünger dabei stehen, den er lieb hatte, spricht er zu seiner Mutter:",
       "nl" : "En bij het kruis van Jezus stonden zijn moeder en de zuster zijner moeder, Maria van Klopas en Maria van Magdala. Toen dan Jezus zijn moeder zag en de discipel, die Hij liefhad, bij haar staande zeide Hij tot zijn moeder:",
-      "time" : 3600
+      "time" : 4530
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 16,
+      "s" : 18,
       "scene" : "golgotha",
       "rol" : "jezus",
       "f" : "show",
       "de" : "Weib, siehe, das ist dein Sohn!",
       "nl" : "Vrouw, zie, uw zoon.",
-      "time" : 3600
+      "time" : 4578
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 16,
+      "s" : 31,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Darnach spricht er zu dem Jünger:",
       "nl" : "Daarna zeide Hij tot de discipel:",
-      "time" : 3600
+      "time" : 4591
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 16,
+      "s" : 39,
       "scene" : "golgotha",
       "rol" : "jezus",
       "f" : "show",
       "de" : "Siehe, das ist deine Mutter!",
       "nl" : "Zie, uw moeder.",
-      "time" : 3600
+      "time" : 4599
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 16,
+      "s" : 48,
+      "scene" : "golgotha",
+      "rol" : "jezus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 4608
+    },
+    {
+      "h" : 1,
+      "m" : 16,
+      "s" : 48,
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 4608
+    },
+    {
+      "h" : 1,
+      "m" : 16,
+      "s" : 55,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
       "de" : "Er nahm alles wohl in acht\r\nIn der letzten Stunde,\r\nSeine Mutter noch bedacht,\r\nSetzt ihr ein’ Vormunde.",
       "nl" : "Hij droeg zorg voor alles\r\nop het laatste moment,\r\nZo bedacht Hij nog zijn moeder,\r\nen gaf haar een voogd.",
-      "time" : 3600
+      "time" : 4615
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 17,
+      "s" : 19,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
       "de" : "O Mensch, mache Richtigkeit,\r\nGott und Menschen liebe,\r\nStirb darauf ohn alles Leid\r\nUnd dich nicht betrübe!",
       "nl" : "O mens, breng alles op orde,\r\nheb God en mensen lief,\r\nsterf dan zonder enig lijden\r\nen wees niet bedroefd!",
-      "time" : 3600
+      "time" : 4639
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 17,
+      "s" : 48,
+      "scene" : "",
+      "rol" : "",
+      "f" : "",
+      "de" : "",
+      "nl" : "",
+      "time" : 4668
+    },
+    {
+      "h" : 1,
+      "m" : 17,
+      "s" : 56,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Und von Stund an nahm sie der Jünger zu sich.",
       "nl" : "En van dat uur af nam de discipel haar bij zich in huis.",
-      "time" : 3600
+      "time" : 4676
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 18,
+      "s" : 10,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Darnach, als Jesus wußte, daß schon alles vollbracht war, daß die Schrift erfüllet würde, spricht er:",
       "nl" : "Hierna zeide Jezus, daar Hij wist, dat alles reeds volbracht was, opdat de Schrift vervuld zou worden:",
-      "time" : 3600
+      "time" : 4690
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 18,
+      "s" : 26,
       "scene" : "golgotha",
       "rol" : "jezus",
       "f" : "show",
       "de" : "Mich dürstet!",
       "nl" : "Mij dorst!",
-      "time" : 3600
+      "time" : 4706
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 18,
+      "s" : 30,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Da stund ein Gefäße voll Essigs. Sie fülleten aber einen Schwamm mit Essig und legten ihn um einen Isopen und hielten es ihm dar zum Munde. Da nun Jesus den Essig genommen hatte, sprach er:",
       "nl" : "Er stond een kruik vol zure wijn; zij staken dan een spons, gedrenkt met zure wijn, op een hysopstengel en brachten die aan zijn mond. Toen Jezus dan de zure wijn genomen had zeide Hij:",
-      "time" : 3600
+      "time" : 4710
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 19,
+      "s" : 2,
       "scene" : "golgotha",
       "rol" : "jezus",
       "f" : "show",
       "de" : "Es ist vollbracht!",
       "nl" : "Het is volbracht!",
-      "time" : 3600
+      "time" : 4742
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 19,
+      "s" : 11,
+      "scene" : "golgotha",
+      "rol" : "jezus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 4751
+    },
+    {
+      "h" : 1,
+      "m" : 19,
+      "s" : 11,
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 4751
+    },
+    {
+      "h" : 1,
+      "m" : 20,
+      "s" : 15,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
-      "de" : "Es ist vollbracht!\r\nO Trost für die gekränkten Seelen!\r\nDie Trauernacht\r\nLäßt nun die letzte Stunde zählen.",
-      "nl" : "Het is volbracht!\r\nO troost voor de geprangde zielen!\r\nDe nacht van treurnis\r\nlaat het laatste uur slaan.",
-      "time" : 3600
+      "de" : "Es ist vollbracht!\nO Trost für die gekränkten Seelen!",
+      "nl" : "Het is volbracht!\nO troost voor de geprangde zielen!",
+      "time" : 4815
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 21,
+      "s" : 15,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 4875
+    },
+    {
+      "h" : 1,
+      "m" : 21,
+      "s" : 37,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
-      "de" : "Der Held aus Juda siegt mit Macht\r\nUnd schließt den Kampf.\r\nEs ist vollbracht!",
-      "nl" : "De Held uit Juda zegeviert machtig\r\nen beslist de strijd.\r\nHet is volbracht!",
-      "time" : 3600
+      "de" : "Die Trauernacht\nLäßt nun die letzte Stunde zählen.",
+      "nl" : "De nacht van treurnis\nlaat het laatste uur slaan.",
+      "time" : 4897
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 22,
+      "s" : 43,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 4963
+    },
+    {
+      "h" : 1,
+      "m" : 23,
+      "s" : 7,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Der Held aus Juda siegt mit Macht\nUnd schließt den Kampf.\nEs ist vollbracht!",
+      "nl" : "De Held uit Juda zegeviert machtig\nen beslist de strijd.\nHet is volbracht!",
+      "time" : 4987
+    },
+    {
+      "h" : 1,
+      "m" : 24,
+      "s" : 3,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5043
+    },
+    {
+      "h" : 1,
+      "m" : 24,
+      "s" : 38,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Es ist vollbracht!",
+      "nl" : "Het is volbracht!",
+      "time" : 5078
+    },
+    {
+      "h" : 1,
+      "m" : 24,
+      "s" : 52,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5092
+    },
+    {
+      "h" : 1,
+      "m" : 24,
+      "s" : 58,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Und neiget das Haupt und verschied.",
       "nl" : "En Hij boog het hoofd en gaf de geest.",
-      "time" : 3600
+      "time" : 5098
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 25,
+      "s" : 10,
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5110
+    },
+    {
+      "h" : 1,
+      "m" : 25,
+      "s" : 37,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
       "de" : "Mein teurer Heiland, laß dich fragen,",
       "nl" : "Mijn dierbare Heiland, laat ik U vragen,",
-      "time" : 3600
+      "time" : 5137
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 26,
+      "s" : 3,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5163
+    },
+    {
+      "h" : 1,
+      "m" : 25,
+      "s" : 46,
       "scene" : "golgotha",
       "rol" : "antwoordkoor",
       "f" : "show",
       "de" : "Jesu, der du warest tot,",
       "nl" : "Jezus, Gij die gestorven was,",
-      "time" : 3600
+      "time" : 5146
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 26,
+      "s" : 14,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
       "de" : "Da du nunmehr ans Kreuz geschlagen\r\nUnd selbst gesagt: Es ist vollbracht,",
       "nl" : "Nu Gij daar aan het kruis geslagen bent\r\nen zelf gezegd heeft: Het is volbracht,",
-      "time" : 3600
+      "time" : 5174
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 26,
+      "s" : 37,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5197
+    },
+    {
+      "h" : 1,
+      "m" : 26,
+      "s" : 25,
       "scene" : "golgotha",
       "rol" : "antwoordkoor",
       "f" : "show",
       "de" : "Lebest nun ohn Ende,",
       "nl" : "leeft nu zonder einde",
-      "time" : 3600
+      "time" : 5185
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 26,
+      "s" : 46,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
       "de" : "Bin ich vom Sterben frei gemacht?",
       "nl" : "Ben ik van de sterfelijkheid bevrijd?",
-      "time" : 3600
+      "time" : 5206
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 27,
+      "s" : 20,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5240
+    },
+    {
+      "h" : 1,
+      "m" : 27,
+      "s" : 2,
       "scene" : "golgotha",
       "rol" : "antwoordkoor",
       "f" : "show",
       "de" : "In der letzten Todesnot,\r\nNirgend mich hinwende",
       "nl" : "In de laatste doodsnood\r\nwend ik mij nergens anders heen",
-      "time" : 3600
+      "time" : 5222
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 27,
+      "s" : 26,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
       "de" : "Kann ich durch deine Pein und Sterben\r\nDas Himmelreich ererben?\r\nIst aller Welt Erlösung da?",
       "nl" : "Kan ik door Uw pijn en sterven\r\nhet hemelrijk beërven?\r\nIs er verlossing voor de hele wereld?",
-      "time" : 3600
+      "time" : 5246
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 28,
+      "s" : 20,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5300
+    },
+    {
+      "h" : 1,
+      "m" : 28,
+      "s" : 3,
       "scene" : "golgotha",
       "rol" : "antwoordkoor",
       "f" : "show",
       "de" : "Als zu dir, der mich versühnt,\r\nO du lieber Herre!",
       "nl" : "dan tot U, die mij verzoent,\r\no, Gij lieve Heer!",
-      "time" : 3600
+      "time" : 5283
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 28,
+      "s" : 28,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
       "de" : "Du kannst vor Schmerzen zwar nichts sagen,",
       "nl" : "Gij kunt van de pijn weliswaar niets zeggen,",
-      "time" : 3600
+      "time" : 5308
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 28,
+      "s" : 46,
       "scene" : "golgotha",
       "rol" : "antwoordkoor",
       "f" : "show",
       "de" : "Gib mir nur, was du verdient,",
       "nl" : "Geef mij slechts, wat Gij verdiend hebt",
-      "time" : 3600
+      "time" : 5326
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 28,
+      "s" : 50,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
-      "de" : "Doch neigest du das Haupt\r\nUnd sprichst stillschweigend: ja.",
+      "de" : "Doch neigest du das Haupt\nUnd sprichst stillschweigend: ja.",
       "nl" : "maar Gij neigt het hoofd\r\nen zegt stilzwijgend: ja.",
-      "time" : 3600
+      "time" : 5330
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 29,
+      "s" : 10,
       "scene" : "golgotha",
       "rol" : "antwoordkoor",
       "f" : "show",
       "de" : "Mehr ich nicht begehre!",
       "nl" : "meer begeer ik niet!",
-      "time" : 3600
+      "time" : 5350
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 29,
+      "s" : 50,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5390
+    },
+    {
+      "h" : 1,
+      "m" : 29,
+      "s" : 45,
+      "scene" : "golgotha",
+      "rol" : "antwoordkoor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5385
+    },
+    {
+      "h" : 1,
+      "m" : 30,
+      "s" : 11,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Und siehe da, der Vorhang im Tempel zerriß in zwei Stück von oben an bis unten aus. Und die Erde erbebete, und die Felsen zerrissen, und die Gräber täten sich auf, und stunden auf viel Leiber der Heiligen.",
       "nl" : "En zie, het voorhangsel van de tempel scheurde van boven tot beneden in tweeën, en de aarde beefde, en de rotsen scheurden, en de graven gingen open en vele lichamen der ontslapen heiligen werden opgewekt.",
-      "time" : 3600
+      "time" : 5411
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 30,
+      "s" : 33,
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5433
+    },
+    {
+      "h" : 1,
+      "m" : 30,
+      "s" : 43,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
       "de" : "Mein Herz, indem die ganze Welt\r\nBei Jesu Leiden gleichfalls leidet,\r\nDie Sonne sich in Trauer kleidet,\r\nDer Vorhang reißt, der Fels zerfällt,\r\nDie Erde bebt, die Gräber spalten,\r\nWeil sie den Schöpfer sehn erkalten,\r\nWas willt du deines Ortes tun?",
       "nl" : "Mijn hart, terwijl de hele wereld\r\nbij het lijden van Jezus eveneens lijdt,\r\nde zon zich in treurnis kleedt\r\nhet voorhangsel scheurt, de rots uiteenvalt,\r\nde aarde beeft, de graven splijten,\r\nomdat zij de Schepper koud zien worden,\r\nwat wil jij in jouw plaats doen?",
-      "time" : 3600
+      "time" : 5443
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 31,
+      "s" : 36,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5496
+    },
+    {
+      "h" : 1,
+      "m" : 32,
+      "s" : 31,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
-      "de" : "Zerfließe, mein Herze, in Fluten der Zähren\r\nDem Höchsten zu Ehren!\r\nErzähle der Welt und dem Himmel die Not:\r\nDein Jesus ist tot!",
-      "nl" : "Vloei uiteen, mijn hart, in stromen van tranen\r\nom de Hoogste te eren!\r\nVertel aarde en hemel de rampspoed:\r\nje Jezus is dood!",
-      "time" : 3600
+      "de" : "Zerfließe, mein Herze, in Fluten der Zähren\nDem Höchsten zu Ehren!",
+      "nl" : "Vloei uiteen, mijn hart, in stromen van tranen\nom de Hoogste te eren!",
+      "time" : 5551
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 34,
+      "s" : 20,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5660
+    },
+    {
+      "h" : 1,
+      "m" : 34,
+      "s" : 45,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Erzähle der Welt und dem Himmel die Not:\nDein Jesus ist tot!",
+      "nl" : "Vertel aarde en hemel de rampspoed:\nje Jezus is dood!",
+      "time" : 5685
+    },
+    {
+      "h" : 1,
+      "m" : 36,
+      "s" : 37,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5797
+    },
+    {
+      "h" : 1,
+      "m" : 36,
+      "s" : 58,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Zerfließe, mein Herze, in Fluten der Zähren\nDem Höchsten zu Ehren!",
+      "nl" : "Vloei uiteen, mijn hart, in stromen van tranen\nom de Hoogste te eren!",
+      "time" : 5818
+    },
+    {
+      "h" : 1,
+      "m" : 38,
+      "s" : 39,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 5919
+    },
+    {
+      "h" : 1,
+      "m" : 38,
+      "s" : 51,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
-      "de" : "Die Juden aber, dieweil es der Rüsttag war, daß nicht die Leichname am Kreuze blieben den Sabbath über (denn desselbigen Sabbaths Tag war sehr groß), baten sie Pilatum, daß ihre Beine gebrochen und sie abgenommen würden. Da kamen die Kriegsknechte und brachen dem ersten die Beine und dem andern, der mit ihm gekreuziget war. Als sie aber zu Jesu kamen, da sie sahen, daß er schon gestorben war, brachen sie ihm die Beine nicht; sondern der Kriegsknechte einer eröffnete seine Seite mit einem Speer, und alsobald ging Blut und Wasser heraus. ",
-      "nl" : "De Joden dan, daar het Voorbereiding was en de lichamen niet op sabbat aan het kruis mochten blijven (want de dag van die sabbat was groot) vroegen Pilatus, dat hun benen gebroken en zij weggenomen zouden worden. De soldaten dan kwamen en braken de benen van de eerste en van de andere, die met Hem gekruisigd waren; maar toen zij bij Jezus gekomen waren en zagen, dat Hij reeds gestorven was, braken zij zijn benen niet, maar een van de soldaten stak met een speer in zijn zijde en terstond kwam er bloed en water uit. ",
-      "time" : 3600
+      "de" : "Die Juden aber, dieweil es der Rüsttag war, daß nicht die Leichname am Kreuze blieben den Sabbath über (denn desselbigen Sabbaths Tag war sehr groß), baten sie Pilatum, daß ihre Beine gebrochen und sie abgenommen würden. ",
+      "nl" : "De Joden dan, daar het Voorbereiding was en de lichamen niet op sabbat aan het kruis mochten blijven (want de dag van die sabbat was groot) vroegen Pilatus, dat hun benen gebroken en zij weggenomen zouden worden. ",
+      "time" : 5931
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 39,
+      "s" : 22,
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da kamen die Kriegsknechte und brachen dem ersten die Beine und dem andern, der mit ihm gekreuziget war. Als sie aber zu Jesu kamen, da sie sahen, daß er schon gestorben war, brachen sie ihm die Beine nicht; sondern der Kriegsknechte einer eröffnete seine Seite mit einem Speer, und alsobald ging Blut und Wasser heraus. ",
+      "nl" : "De soldaten dan kwamen en braken de benen van de eerste en van de andere, die met Hem gekruisigd waren; maar toen zij bij Jezus gekomen waren en zagen, dat Hij reeds gestorven was, braken zij zijn benen niet, maar een van de soldaten stak met een speer in zijn zijde en terstond kwam er bloed en water uit. ",
+      "time" : 5962
+    },
+    {
+      "h" : 1,
+      "m" : 40,
+      "s" : 5,
       "scene" : "golgotha",
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Und der das gesehen hat, der hat es bezeuget, und sein Zeugnis ist wahr, und derselbige weiß, daß er die Wahrheit saget, auf daß ihr gläubet. Denn solches ist geschehen, auf daß die Schrift erfüllet würde: «Ihr sollet ihm kein Bein zerbrechen.» Und abermal spricht eine andere Schrift: «Sie werden sehen, in welchen sie gestochen haben!»",
       "nl" : "En die het gezien heeft, heeft ervan getuigd en zijn getuigenis is waarachtig en hij weet, dat hij de waarheid spreekt, opdat ook gij gelooft. Want dit is geschied, opdat het schriftwoord zou vervuld worden: «Geen been van Hem zal verbrijzeld worden». En weder zegt een ander schriftwoord: «Zij zullen zien op Hem, die zij doorstoken hebben».",
-      "time" : 3600
+      "time" : 6005
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 41,
+      "s" : 0,
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 6060
+    },
+    {
+      "h" : 1,
+      "m" : 41,
+      "s" : 8,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
       "de" : "O hilf, Christe, Gottes Sohn,\r\nDurch dein bitter Leiden,\r\nDaß wir dir stets untertan\r\nAll Untugend meiden,",
       "nl" : "O help ons, Christus, Zoon van God,\r\ndoor Uw bitter lijden\r\ndat wij u steeds onderdanig\r\nalle kwaad vermijden.",
-      "time" : 3600
+      "time" : 6068
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 41,
+      "s" : 30,
       "scene" : "golgotha",
       "rol" : "koor",
       "f" : "show",
       "de" : "Deinen Tod und sein Ursach\r\nFruchtbarlich bedenken,\r\nDafür, wiewohl arm und schwach,\r\nDir Dankopfer schenken.",
       "nl" : "Dat wij uw dood en de oorzaak ervan\r\nvruchtbaar gedenken,\r\nen daarvoor, ofschoon wij arm en zwak zijn,\r\nU dankoffers schenken.",
-      "time" : 3600
+      "time" : 6090
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 41,
+      "s" : 59,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 6119
+    },
+    {
+      "h" : 1,
+      "m" : 41,
+      "s" : 59,
+      "scene" : "tomb",
+      "rol" : "",
+      "f" : "move",
+      "de" : "",
+      "nl" : "",
+      "time" : 6119
+    },
+    {
+      "h" : 1,
+      "m" : 42,
+      "s" : 6,
       "scene" : "tomb",
       "rol" : "evangelist",
       "f" : "show",
-      "de" : "Darnach bat Pilatum Joseph von Arimathia, der ein Jünger Jesu war (doch heimlich, aus Furcht vor den Juden), daß er möchte abnehmen den Leichnam Jesu. Und Pilatus erlaubete es. Derowegen kam er und nahm den Leichnam Jesu herab. Es kam aber auch Nikodemus, der vormals bei der Nacht zu Jesu kommen war, und brachte Myrrhen und Aloen untereinander, bei hundert Pfunden.",
-      "nl" : "En daarna vroeg Jozef van Arimatea, een discipel van Jezus (maar in het verborgen uit vrees voor de Joden) aan Pilatus het lichaam van Jezus te mogen wegnemen; en Pilatus stond het toe. Hij kwam dan en nam zijn lichaam weg. En ook kwam Nikodemus, die de eerste maal des nachts tot Hem gekomen was, en hij bracht een mengsel mede van mirre en aloë, ongeveer honderd pond.",
-      "time" : 3600
+      "de" : "Darnach bat Pilatum Joseph von Arimathia, der ein Jünger Jesu war (doch heimlich, aus Furcht vor den Juden), daß er möchte abnehmen den Leichnam Jesu. Und Pilatus erlaubete es. Derowegen kam er und nahm den Leichnam Jesu herab. ",
+      "nl" : "En daarna vroeg Jozef van Arimatea, een discipel van Jezus (maar in het verborgen uit vrees voor de Joden) aan Pilatus het lichaam van Jezus te mogen wegnemen; en Pilatus stond het toe. Hij kwam dan en nam zijn lichaam weg. ",
+      "time" : 6126
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 42,
+      "s" : 43,
       "scene" : "tomb",
       "rol" : "evangelist",
       "f" : "show",
-      "de" : "Da nahmen sie den Leichnam Jesu, und bunden ihn in leinen Tücher mit Spezereien, wie die Juden pflegen zu begraben. Es war aber an der Stätte, da er gekreuziget ward, ein Garte, und im Garten ein neu Grab, in welches niemand je geleget war. Daselbst hin legten sie Jesum, um des Rüsttags willen der Juden, dieweil das Grab nahe war.",
-      "nl" : "Zij namen dan het lichaam van Jezus en wikkelden het in linnen windsels met de specerijen, zoals het bij de Joden gebruikelijk is te begraven. En er was ter plaatse, waar Hij gekruisigd was, een hof en in die hof een nieuw graf, waarin nog nooit iemand was bijgezet; daar dan legden zij Jezus neder wegens de Voorbereiding der Joden, omdat het graf dichtbij was.",
-      "time" : 3600
+      "de" : "Es kam aber auch Nikodemus, der vormals bei der Nacht zu Jesu kommen war, und brachte Myrrhen und Aloen untereinander, bei hundert Pfunden.",
+      "nl" : "En ook kwam Nikodemus, die de eerste maal des nachts tot Hem gekomen was, en hij bracht een mengsel mede van mirre en aloë, ongeveer honderd pond.",
+      "time" : 6163
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 43,
+      "s" : 3,
+      "scene" : "tomb",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da nahmen sie den Leichnam Jesu, und bunden ihn in leinen Tücher mit Spezereien, wie die Juden pflegen zu begraben. ",
+      "nl" : "Zij namen dan het lichaam van Jezus en wikkelden het in linnen windsels met de specerijen, zoals het bij de Joden gebruikelijk is te begraven. ",
+      "time" : 6183
+    },
+    {
+      "h" : 1,
+      "m" : 43,
+      "s" : 23,
+      "scene" : "tomb",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Es war aber an der Stätte, da er gekreuziget ward, ein Garte, und im Garten ein neu Grab, in welches niemand je geleget war. Daselbst hin legten sie Jesum, um des Rüsttags willen der Juden, dieweil das Grab nahe war.",
+      "nl" : "En er was ter plaatse, waar Hij gekruisigd was, een hof en in die hof een nieuw graf, waarin nog nooit iemand was bijgezet; daar dan legden zij Jezus neder wegens de Voorbereiding der Joden, omdat het graf dichtbij was.",
+      "time" : 6203
+    },
+    {
+      "h" : 1,
+      "m" : 44,
+      "s" : 8,
+      "scene" : "tomb",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 6248
+    },
+    {
+      "h" : 1,
+      "m" : 44,
+      "s" : 52,
       "scene" : "tomb",
       "rol" : "koor",
       "f" : "show",
       "de" : "Ruht wohl, ihr heiligen Gebeine,\r\nDie ich nun weiter nicht beweine,\r\nRuht wohl und bringt auch mich zur Ruh!",
       "nl" : "Rust zacht, gij heilig gebeente\r\ndat ik nu verder niet beween.\r\nRust zacht en breng ook mij tot rust!",
-      "time" : 3600
+      "time" : 6292
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 46,
+      "s" : 9,
+      "scene" : "tomb",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 6369
+    },
+    {
+      "h" : 1,
+      "m" : 46,
+      "s" : 34,
       "scene" : "tomb",
       "rol" : "koor",
       "f" : "show",
       "de" : "Das Grab, so euch bestimmet ist\r\nUnd ferner keine Not umschließt,\r\nMacht mir den Himmel auf und schließt\r\ndie Hölle zu.",
       "nl" : "Het graf, zoals het voor U is bestemd\r\nen dat verder geen rampspoed bevat,\r\nmaakt voor mij de hemel open\r\nen sluit de toegang tot de hel.",
-      "time" : 3600
+      "time" : 6394
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 47,
+      "s" : 1,
+      "scene" : "tomb",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 6421
+    },
+    {
+      "h" : 1,
+      "m" : 47,
+      "s" : 10,
+      "scene" : "tomb",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Ruht wohl, ihr heiligen Gebeine,\r\nDie ich nun weiter nicht beweine,\r\nRuht wohl und bringt auch mich zur Ruh!",
+      "nl" : "Rust zacht, gij heilig gebeente\r\ndat ik nu verder niet beween.\r\nRust zacht en breng ook mij tot rust!",
+      "time" : 6430
+    },
+    {
+      "h" : 1,
+      "m" : 48,
+      "s" : 28,
+      "scene" : "tomb",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Das Grab, so euch bestimmet ist\r\nUnd ferner keine Not umschließt,\r\nMacht mir den Himmel auf und schließt\r\ndie Hölle zu.",
+      "nl" : "Het graf, zoals het voor U is bestemd\r\nen dat verder geen rampspoed bevat,\r\nmaakt voor mij de hemel open\r\nen sluit de toegang tot de hel.",
+      "time" : 6508
+    },
+    {
+      "h" : 1,
+      "m" : 48,
+      "s" : 53,
+      "scene" : "tomb",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Ruht wohl, ihr heiligen Gebeine,\r\nDie ich nun weiter nicht beweine,\r\nRuht wohl und bringt auch mich zur Ruh!",
+      "nl" : "Rust zacht, gij heilig gebeente\r\ndat ik nu verder niet beween.\r\nRust zacht en breng ook mij tot rust!",
+      "time" : 6533
+    },
+    {
+      "h" : 1,
+      "m" : 50,
+      "s" : 14,
+      "scene" : "tomb",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 6614
+    },
+    {
+      "h" : 1,
+      "m" : 50,
+      "s" : 51,
       "scene" : "tomb",
       "rol" : "koor",
       "f" : "show",
       "de" : "Ach Herr, laß dein lieb Engelein\r\nAm letzten End die Seele mein\r\nIn Abrahams Schoß tragen,\r\nDen Leib in seim Schlafkämmerlein\r\nGar sanft ohn einge Qual und Pein\r\nRuhn bis am jüngsten Tage!",
       "nl" : "Ach Heer, laat Uw lieve engeltjes\naan het eind mijn ziel\nnaar Abrahams schoot brengen!\nLaat mijn lichaam in zijn slaapkamertje\r\nheel zacht, zonder kwellingen en pijn\r\nrusten tot aan de jongste dag!",
-      "time" : 3600
+      "time" : 6651
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 51,
+      "s" : 35,
       "scene" : "tomb",
       "rol" : "koor",
       "f" : "show",
       "de" : "Alsdenn vom Tod erwecke mich,\r\nDaß meine Augen sehen dich\r\nIn aller Freud, o Gottes Sohn,\r\nMein Heiland und Genadenthron!\r\nHerr Jesu Christ, erhöre mich,\r\nIch will dich preisen ewiglich!",
       "nl" : "Wek mij dan op uit de dood,\nopdat mijn ogen U mogen zien\nin alle vreugde, o Zoon van God,\nmijn Heiland en genadetroon!\r\nHeer Jezus Christus, verhoor mij\r\nik zal U eeuwig prijzen!",
-      "time" : 3600
+      "time" : 6695
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 52,
+      "s" : 27,
+      "scene" : "tomb",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 6747
+    },
+    {
+      "h" : 1,
+      "m" : 51,
+      "s" : 7,
       "scene" : "tomb",
       "rol" : "met dank aan",
       "f" : "show",
       "de" : "",
       "nl" : "Vertaling: Nederlands Bijbelgenootschap 1951 (recitatieven) en Kamerkoor Vocoza/Bram Bos (overige teksten): www.vocoza.nl",
-      "time" : 3600
+      "time" : 6667
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 51,
+      "s" : 17,
       "scene" : "tomb",
       "rol" : "met dank aan",
       "f" : "show",
       "de" : "",
       "nl" : "Muziek: Choir of King's College Cambridge, Brandenburg Consort, Stephen Cleobury, Roy Goodman, John Mark Ainsley, Stephen Richardson, Catherine Bott, Michael Chance, Paul Agnew & Stephen Varcoe",
-      "time" : 3600
+      "time" : 6677
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 52,
+      "s" : 27,
       "scene" : "tomb",
       "rol" : "met dank aan",
       "f" : "show",
       "de" : "",
       "nl" : "Concept: De Kathedraal",
-      "time" : 3600
+      "time" : 6747
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 52,
+      "s" : 37,
       "scene" : "tomb",
       "rol" : "met dank aan",
       "f" : "show",
       "de" : "",
       "nl" : "Realisatie: Vic Mortelmans",
-      "time" : 3600
+      "time" : 6757
     },
     {
       "h" : 1,
-      "m" : "",
-      "s" : "",
+      "m" : 52,
+      "s" : 17,
       "scene" : "tomb",
       "rol" : "met dank aan",
       "f" : "show",
       "de" : "",
       "nl" : "Opdracht: AMDG",
-      "time" : 3600
+      "time" : 6737
+    },
+    {
+      "h" : 1,
+      "m" : 52,
+      "s" : 27,
+      "scene" : "tomb",
+      "rol" : "met dank aan",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 6747
     }
-  ]
-}
+  ]}
     </script>
   </body>
 </html>
