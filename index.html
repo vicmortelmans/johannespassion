@@ -9,8 +9,8 @@
         background-color: black;
       }
       #viewport {
-        width: 3840px;
-        height: 720px;
+        width: 3328px;
+        height: 768px;
         position: relative;
         overflow: hidden;
       }
@@ -32,12 +32,12 @@
         /* height: 200px; */
         color: white;
         background-color: black;
-        box-shadow: 0 0 25px 12px black;
+        box-shadow: 0 0 16px 16px black;
       }
       #viewport>div>div.jezus {
         color: black;
         background-color: white;
-        box-shadow: 0 0 25px 12px white;
+        box-shadow: 0 0 16px 16px white;
       }
       p {
         margin: 10px;
@@ -49,18 +49,69 @@
         font-style: italic;
       }
       #scenery.intro {
-        bottom: -335%;
+        bottom: -315%;
         left: 0%;
       }
       .intro.koor { bottom: 45%; left: 2%; }
+      .intro.titel { bottom: 10%; left: 20% }
       #scenery.olijven {
-        bottom: -26%;
+        bottom: -16%;
         left: -7%;
       }
       .olijven.evangelist { bottom: 15%; left: 5%; }
       .olijven.jezus { bottom: 23%; left: 10%; }
       .olijven.volk { bottom: 15%; left: 21%; }
       .olijven.koor { bottom: 7%; left: 23%; }
+      #scenery.father {
+        bottom: -120%;
+        left: 0%;
+      }
+      .father.koor { bottom: 40%; left: 7% }
+      #scenery.caught {
+        bottom: -165%;
+        left: -20%;
+      }
+      .caught.evangelist { bottom: 10%; left: 10% }  
+      .caught.koor { bottom: 10%; left: 20% }
+      #scenery.palace {
+        bottom: ;
+        left: ;
+      }
+      .palace.dienaar { bottom: 10%; left: 20% }
+      .palace.evangelist { bottom: 10%; left: 20% }
+      .palace.hogepriesters { bottom: 10%; left: 20% }
+      .palace.jezus { bottom: 10%; left: 20% }
+      .palace.koor { bottom: 10%; left: 20% }
+      .palace.petrus { bottom: 10%; left: 20% }
+      .palace.pilatus { bottom: 10%; left: 20% }
+      .palace.slaaf { bottom: 10%; left: 20% }
+      .palace.slavin { bottom: 10%; left: 20% }
+      .palace.soldaten { bottom: 10%; left: 20% }
+      .palace.volk { bottom: 10%; left: 20% }
+      #scenery.carrying {
+        bottom: ;
+        left: ;
+      }
+      .carrying.evangelist { bottom: 10%; left: 20% }
+      .carrying.koor { bottom: 10%; left: 20% }
+      #scenery.golgotha { 
+        bottom: ;
+        left: ;
+      }
+      .golgotha.antwoordkoor { bottom: 10%; left: 20% }
+      .golgotha.evangelist { bottom: 10%; left: 20% }
+      .golgotha.hogepriesters { bottom: 10%; left: 20% }
+      .golgotha.jezus { bottom: 10%; left: 20% }
+      .golgotha.koor { bottom: 10%; left: 20% }
+      .golgotha.pilatus { bottom: 10%; left: 20% }
+      .golgotha.soldaten { bottom: 10%; left: 20% }
+      #scenery.tomb {
+        bottom: ;
+        left: ;
+      }
+      .tomb.evangelist { bottom: 10%; left: 20% }
+      .tomb.koor { bottom: 10%; left: 20% }
+      .tomb.met-dank-aan { bottom: 10%; left: 20% }
     </style>
     <link rel="icon" type="image/png" href="">
     <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
@@ -74,6 +125,8 @@
         <div class="olijven jezus"></div>
         <div class="olijven volk"></div>
         <div class="olijven koor"></div>
+        <div class="father koor"></div>
+        <div class="caught evangelist"></div>
       </div>
       <div id="room">
         <div class="intro koor"></div>
@@ -106,17 +159,6 @@
           }
           return;
         }
-        function schedule(a) {
-          var offset = 1000 * (a.h * 3600 + a.m * 60 + a.s) - 1000 * hash;
-          if (offset < 0) {
-            perform(a);
-          } else {
-            setTimeout(function() {
-              perform(a);
-            }, offset);
-          }
-          return;
-        }
         // hide all placeholders
         $('#viewport > div > div').hide();
         // add text fields to all placeholders
@@ -130,11 +172,18 @@
           audio.currentTime = hash;
           audio.play();
           audio.addEventListener('playing', function () {
-            // schedule events
-            var t0 = performance.now();
-            script.script.forEach(schedule);
-            var t1 = performance.now();
-            console.log("all actions scheduled in " + (t1 - t0) + " milliseconds");
+            // start polling time and performing events
+            setInterval(function() {
+              currentTime = audio.currentTime;
+              // run through script and perform and remove all passed actions
+              script.script.forEach(function(a) {
+                if (!a.done && a.time <= currentTime) {
+                  perform(a);
+                  a.done = true;
+                  console.log("[time " + currentTime + "] Performed scene '" + a.scene + "', rol '" + a.rol + "', f '" + a.f + "'");
+                }
+              });
+            }, 100);
           });
         });
       });
@@ -145,13 +194,47 @@ var script =
   "script" : [
     {
       "h" : 0,
+      "m" : "",
+      "s" : "",
+      "scene" : "",
+      "rol" : "titel",
+      "f" : "",
+      "de" : "",
+      "nl" : "Johannespassie - J.S. Bach",
+      "time" : 0
+    },
+    {
+      "h" : 0,
+      "m" : "",
+      "s" : "",
+      "scene" : "",
+      "rol" : "titel",
+      "f" : "",
+      "de" : "",
+      "nl" : "Taferelen uit de Passie van Christus - Hans Memling",
+      "time" : 0
+    },
+    {
+      "h" : 0,
+      "m" : "",
+      "s" : "",
+      "scene" : "",
+      "rol" : "titel",
+      "f" : "",
+      "de" : "",
+      "nl" : "johannespassion.gelovenleren.net",
+      "time" : 0
+    },
+    {
+      "h" : 0,
       "m" : 0,
       "s" : 59,
       "scene" : "intro",
       "rol" : "koor",
       "f" : "show",
       "de" : "Herr, unser Herrscher, dessen Ruhm\r\nin allen Landen herrlich ist!",
-      "nl" : "Heer, onze Heerser, wiens roem\r\nin alle landen heerlijk is!"
+      "nl" : "Heer, onze Heerser, wiens roem\r\nin alle landen heerlijk is!",
+      "time" : 59
     },
     {
       "h" : 0,
@@ -161,7 +244,8 @@ var script =
       "rol" : "koor",
       "f" : "show",
       "de" : "Zeig uns durch deine Passion,\r\nDaß du, der wahre Gottessohn,\r\nZu aller Zeit,\r\nAuch in der größten Niedrigkeit,\r\nVerherrlicht worden bist!",
-      "nl" : "Toon ons door Uw lijden\r\ndat Gij, de ware Zoon van God\r\nte allen tijde,\r\nook in de uiterste onaanzienlijkheid,\r\nverheerlijkt bent."
+      "nl" : "Toon ons door Uw lijden\r\ndat Gij, de ware Zoon van God\r\nte allen tijde,\r\nook in de uiterste onaanzienlijkheid,\r\nverheerlijkt bent.",
+      "time" : 190
     },
     {
       "h" : 0,
@@ -171,7 +255,8 @@ var script =
       "rol" : "koor",
       "f" : "hide",
       "de" : "",
-      "nl" : ""
+      "nl" : "",
+      "time" : 310
     },
     {
       "h" : 0,
@@ -181,7 +266,8 @@ var script =
       "rol" : "koor",
       "f" : "show",
       "de" : "Herr, unser Herrscher, dessen Ruhm\r\nin allen Landen herrlich ist!",
-      "nl" : "Heer, onze Heerser, wiens roem\r\nin alle landen heerlijk is!"
+      "nl" : "Heer, onze Heerser, wiens roem\r\nin alle landen heerlijk is!",
+      "time" : 377
     },
     {
       "h" : 0,
@@ -191,7 +277,8 @@ var script =
       "rol" : "",
       "f" : "move",
       "de" : "",
-      "nl" : ""
+      "nl" : "",
+      "time" : 508
     },
     {
       "h" : 0,
@@ -201,7 +288,8 @@ var script =
       "rol" : "koor",
       "f" : "hide",
       "de" : "",
-      "nl" : ""
+      "nl" : "",
+      "time" : 510
     },
     {
       "h" : 0,
@@ -211,7 +299,8 @@ var script =
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Jesus ging mit seinen Jüngern über den Bach Kidron, da war ein Garten, darein ging Jesus und seine Jünger. ",
-      "nl" : "Jezus ging met zijn discipelen naar de overzijde van de beek Kidron, waar een hof was, die Hij met zijn discipelen binnenging."
+      "nl" : "Jezus ging met zijn discipelen naar de overzijde van de beek Kidron, waar een hof was, die Hij met zijn discipelen binnenging.",
+      "time" : 516
     },
     {
       "h" : 0,
@@ -221,7 +310,8 @@ var script =
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Judas aber, der ihn verriet, wußte den Ort auch, denn Jesus versammlete sich oft daselbst mit seinen Jüngern. ",
-      "nl" : "En ook Judas, zijn verrrader, wist die plaats, omdat Jezus daar dikwijls was samengekomen met zijn discipelen. "
+      "nl" : "En ook Judas, zijn verrrader, wist die plaats, omdat Jezus daar dikwijls was samengekomen met zijn discipelen. ",
+      "time" : 532
     },
     {
       "h" : 0,
@@ -231,7 +321,8 @@ var script =
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Da nun Judas zu sich hatte genommen die Schar und der Hohenpriester und Pharisäer Diener, kommt er dahin mit Fackeln, Lampen und mit Waffen. ",
-      "nl" : "Judas dan kwam daar, die een afdeling soldaten tot zijn beschikking had gekregen en dienaars van de overpriesters en de Farizeeën, voorzien van lantaarns, fakkels en wapenen."
+      "nl" : "Judas dan kwam daar, die een afdeling soldaten tot zijn beschikking had gekregen en dienaars van de overpriesters en de Farizeeën, voorzien van lantaarns, fakkels en wapenen.",
+      "time" : 548
     },
     {
       "h" : 0,
@@ -241,17 +332,8 @@ var script =
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Als nun Jesus wußte alles, was ihm begegnen sollte, ging er hinaus und sprach zu ihnen:",
-      "nl" : "Jezus dan, alles wetende, wat over Hem komen zou, kwam naar voren en zeide tot hen:"
-    },
-    {
-      "h" : 0,
-      "m" : 9,
-      "s" : 41,
-      "scene" : "olijven",
-      "rol" : "evangelist",
-      "f" : "hide",
-      "de" : "",
-      "nl" : ""
+      "nl" : "Jezus dan, alles wetende, wat over Hem komen zou, kwam naar voren en zeide tot hen:",
+      "time" : 566
     },
     {
       "h" : 0,
@@ -261,7 +343,19 @@ var script =
       "rol" : "jezus",
       "f" : "show",
       "de" : "Wen suchet ihr?",
-      "nl" : "Wie zoekt gij?"
+      "nl" : "Wie zoekt gij?",
+      "time" : 579
+    },
+    {
+      "h" : 0,
+      "m" : 9,
+      "s" : 41,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 581
     },
     {
       "h" : 0,
@@ -271,7 +365,8 @@ var script =
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Sie antworteten ihm:",
-      "nl" : "Zij antwoordden Hem:"
+      "nl" : "Zij antwoordden Hem:",
+      "time" : 584
     },
     {
       "h" : 0,
@@ -281,7 +376,8 @@ var script =
       "rol" : "volk",
       "f" : "show",
       "de" : "Jesum von Nazareth!",
-      "nl" : "Jezus van Nazareth!"
+      "nl" : "Jezus van Nazareth!",
+      "time" : 588
     },
     {
       "h" : 0,
@@ -291,7 +387,8 @@ var script =
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Jesus spricht zu ihnen:",
-      "nl" : "Jezus zeide tot hen:"
+      "nl" : "Jezus zeide tot hen:",
+      "time" : 594
     },
     {
       "h" : 0,
@@ -301,7 +398,8 @@ var script =
       "rol" : "jezus",
       "f" : "show",
       "de" : "Ich bins.",
-      "nl" : "Ik ben het."
+      "nl" : "Ik ben het.",
+      "time" : 597
     },
     {
       "h" : 0,
@@ -311,7 +409,8 @@ var script =
       "rol" : "volk",
       "f" : "hide",
       "de" : "",
-      "nl" : ""
+      "nl" : "",
+      "time" : 599
     },
     {
       "h" : 0,
@@ -321,7 +420,8 @@ var script =
       "rol" : "jezus",
       "f" : "hide",
       "de" : "",
-      "nl" : ""
+      "nl" : "",
+      "time" : 601
     },
     {
       "h" : 0,
@@ -331,7 +431,8 @@ var script =
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Judas aber, der ihn verriet, stund auch bei ihnen. ",
-      "nl" : "En ook Judas, zijn verrader, stond bij hen."
+      "nl" : "En ook Judas, zijn verrader, stond bij hen.",
+      "time" : 601
     },
     {
       "h" : 0,
@@ -341,7 +442,8 @@ var script =
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Als nun Jesus zu ihnen sprach: Ich bins, wichen sie zurücke und fielen zu Boden. ",
-      "nl" : "Toen Hij dan tot hen zeide: Ik ben het, deinsden zij terug en vielen ter aarde."
+      "nl" : "Toen Hij dan tot hen zeide: Ik ben het, deinsden zij terug en vielen ter aarde.",
+      "time" : 610
     },
     {
       "h" : 0,
@@ -351,7 +453,8 @@ var script =
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Da fragete er sie abermal:",
-      "nl" : "Wederom dan stelde Hij hun de vraag:"
+      "nl" : "Wederom dan stelde Hij hun de vraag:",
+      "time" : 622
     },
     {
       "h" : 0,
@@ -361,7 +464,8 @@ var script =
       "rol" : "jezus",
       "f" : "show",
       "de" : "Wen suchet ihr?",
-      "nl" : "Wie zoekt gij?"
+      "nl" : "Wie zoekt gij?",
+      "time" : 626
     },
     {
       "h" : 0,
@@ -371,7 +475,8 @@ var script =
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Sie aber sprachen:",
-      "nl" : "En zij zeiden:"
+      "nl" : "En zij zeiden:",
+      "time" : 629
     },
     {
       "h" : 0,
@@ -381,7 +486,8 @@ var script =
       "rol" : "volk",
       "f" : "show",
       "de" : "Jesum von Nazareth!",
-      "nl" : "Jezus van Nazareth!"
+      "nl" : "Jezus van Nazareth!",
+      "time" : 631
     },
     {
       "h" : 0,
@@ -391,7 +497,8 @@ var script =
       "rol" : "evangelist",
       "f" : "show",
       "de" : "Jesus antwortete:",
-      "nl" : "Jezus antwoordde:"
+      "nl" : "Jezus antwoordde:",
+      "time" : 641
     },
     {
       "h" : 0,
@@ -401,7 +508,8 @@ var script =
       "rol" : "jezus",
       "f" : "show",
       "de" : "Ich habs euch gesagt, daß ichs sei.",
-      "nl" : "Ik zeide u, dat Ik het ben."
+      "nl" : "Ik zeide u, dat Ik het ben.",
+      "time" : 644
     },
     {
       "h" : 0,
@@ -411,7 +519,8 @@ var script =
       "rol" : "jezus",
       "f" : "show",
       "de" : "Suchet ihr denn mich, so lasset diese gehen!",
-      "nl" : "Indien gij dan Mij zoekt, laat dezen heengaan;"
+      "nl" : "Indien gij dan Mij zoekt, laat dezen heengaan;",
+      "time" : 650
     },
     {
       "h" : 0,
@@ -421,7 +530,8 @@ var script =
       "rol" : "volk",
       "f" : "hide",
       "de" : "",
-      "nl" : ""
+      "nl" : "",
+      "time" : 656
     },
     {
       "h" : 0,
@@ -431,7 +541,8 @@ var script =
       "rol" : "evangelist",
       "f" : "hide",
       "de" : "",
-      "nl" : ""
+      "nl" : "",
+      "time" : 658
     },
     {
       "h" : 0,
@@ -441,7 +552,8 @@ var script =
       "rol" : "jezus",
       "f" : "hide",
       "de" : "",
-      "nl" : ""
+      "nl" : "",
+      "time" : 660
     },
     {
       "h" : 0,
@@ -451,7 +563,8 @@ var script =
       "rol" : "koor",
       "f" : "show",
       "de" : "O große Lieb, o Lieb ohn alle Maße,\nDie dich gebracht auf diese Marterstraße!",
-      "nl" : "O grote liefde, o liefde zonder maat\r\ndie u op deze lijdensweg gebracht heeft!"
+      "nl" : "O grote liefde, o liefde zonder maat\r\ndie u op deze lijdensweg gebracht heeft!",
+      "time" : 663
     },
     {
       "h" : 0,
@@ -461,7 +574,8 @@ var script =
       "rol" : "koor",
       "f" : "show",
       "de" : "Ich lebte mit der Welt in Lust und Freuden,\r\nUnd du mußt leiden!",
-      "nl" : "Ik leefde in een wereld vol lust en vreugde,\r\nterwijl Gij moest lijden!"
+      "nl" : "Ik leefde in een wereld vol lust en vreugde,\r\nterwijl Gij moest lijden!",
+      "time" : 684
     },
     {
       "h" : 0,
@@ -471,9 +585,2596 @@ var script =
       "rol" : "koor",
       "f" : "hide",
       "de" : "",
-      "nl" : ""
+      "nl" : "",
+      "time" : 706
+    },
+    {
+      "h" : 0,
+      "m" : 11,
+      "s" : 50,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Auf daß das Wort erfüllet würde, welches er sagte: Ich habe der keine verloren, die du mir gegeben hast. ",
+      "nl" : "Opdat het woord vervuld werd, dat Hij gesproken had: Wie Gij Mij gegeven hebt, uit hen heb Ik niemand laten verloren gaan.",
+      "time" : 710
+    },
+    {
+      "h" : 0,
+      "m" : 12,
+      "s" : 9,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da hatte Simon Petrus ein Schwert und zog es aus und schlug nach des Hohenpriesters Knecht und hieb ihm sein recht Ohr ab; und der Knecht hieß Malchus. ",
+      "nl" : "Simon Petrus dan, die een zwaard had, trok het, en hij trof de slaaf van de hogepriester en sloeg hem het rechteroor af; de naam nu van de slaaf was Malchus. ",
+      "time" : 729
+    },
+    {
+      "h" : 0,
+      "m" : 12,
+      "s" : 26,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da sprach Jesus zu Petro:",
+      "nl" : "Jezus dan zeide tot Petrus:",
+      "time" : 746
+    },
+    {
+      "h" : 0,
+      "m" : 12,
+      "s" : 30,
+      "scene" : "olijven",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Stecke dein Schwert in die Scheide! Soll ich den Kelch nicht trinken, den mir mein Vater gegeben hat?",
+      "nl" : "Steek het zwaard in de schede; de beker, die de Vader Mij gegeven heeft, zou Ik die niet drinken?",
+      "time" : 750
+    },
+    {
+      "h" : 0,
+      "m" : 12,
+      "s" : 53,
+      "scene" : "olijven",
+      "rol" : "jezus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 773
+    },
+    {
+      "h" : 0,
+      "m" : 12,
+      "s" : 53,
+      "scene" : "olijven",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 773
+    },
+    {
+      "h" : 0,
+      "m" : 12,
+      "s" : 41,
+      "scene" : "father",
+      "rol" : "",
+      "f" : "move",
+      "de" : "",
+      "nl" : "",
+      "time" : 761
+    },
+    {
+      "h" : 0,
+      "m" : 12,
+      "s" : 56,
+      "scene" : "father",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Dein Will gescheh, Herr Gott, zugleich\nAuf Erden wie im Himmelreich.\nGib uns Geduld in Leidenszeit,\nGehorsam sein in Lieb und Leid;\nWehr und steur allem Fleisch und Blut,\nDas wider deinen Willen tut!",
+      "nl" : "Uw wil geschiede, Heer God, zowel\nop aarde als in het hemelrijk.\nGeef ons geduld in de tijd van het lijden,\ngehoorzaamheid in lief en leed;\nWeerstreef en bestrijd alle vlees en bloed,\ndat tegen uw wil in handelt.",
+      "time" : 776
+    },
+    {
+      "h" : 0,
+      "m" : 13,
+      "s" : 45,
+      "scene" : "father",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 825
+    },
+    {
+      "h" : 0,
+      "m" : 13,
+      "s" : 40,
+      "scene" : "caught",
+      "rol" : "",
+      "f" : "move",
+      "de" : "",
+      "nl" : "",
+      "time" : 820
+    },
+    {
+      "h" : 0,
+      "m" : 13,
+      "s" : 50,
+      "scene" : "caught",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Die Schar aber und der Oberhauptmann und die Diener der Juden nahmen Jesum und bunden ihn und führeten ihn, aufs erste zu Hannas, der war Kaiphas Schwäher, welcher des Jahres Hoherpriester war. Es war aber Kaiphas, der den Juden riet, es wäre gut, daß ein Mensch würde umbracht für das Volk.",
+      "nl" : "De afdeling soldaten dan en de overste en de dienaars der Joden namen Jezus gevangen, boeiden Hem, en brachten Hem eerst voor Annas, want hij was de schoonvader van Kajafas, die dat jaar hogepriester was; en Kajafas was het, die de Joden de raad had gegeven: Het is nuttig, dat één mens sterft ten behoeve van het volk.",
+      "time" : 830
+    },
+    {
+      "h" : 0,
+      "m" : 14,
+      "s" : 35,
+      "scene" : "caught",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 875
+    },
+    {
+      "h" : 0,
+      "m" : 15,
+      "s" : 3,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Von den Stricken meiner Sünden\nMich zu entbinden,\nWird mein Heil gebunden.",
+      "nl" : "Om mij van uit de boeien van mijn zonden\nlos te maken,\nwordt mijn Heiland vastgebonden.",
+      "time" : 903
+    },
+    {
+      "h" : 0,
+      "m" : 16,
+      "s" : 17,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 977
+    },
+    {
+      "h" : 0,
+      "m" : 16,
+      "s" : 36,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Mich von allen Lasterbeulen\nVöllig zu heilen,\nLäßt er sich verwunden. ",
+      "nl" : "Om mij van alle gezwellen van mijn slechtheid\nvolledig te genezen,\nlaat Hij zich verwonden.",
+      "time" : 996
+    },
+    {
+      "h" : 0,
+      "m" : 17,
+      "s" : 22,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1042
+    },
+    {
+      "h" : 0,
+      "m" : 17,
+      "s" : 32,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Von den Stricken meiner Sünden\nMich zu entbinden,\nWird mein Heil gebunden.",
+      "nl" : "Om mij van uit de boeien van mijn zonden\nlos te maken,\nwordt mijn Heiland vastgebonden.",
+      "time" : 1052
+    },
+    {
+      "h" : 0,
+      "m" : 17,
+      "s" : 59,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1079
+    },
+    {
+      "h" : 0,
+      "m" : 18,
+      "s" : 8,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Von den Stricken meiner Sünden\nMich zu entbinden,\nWird mein Heil gebunden.",
+      "nl" : "Om mij van uit de boeien van mijn zonden\nlos te maken,\nwordt mijn Heiland vastgebonden.",
+      "time" : 1088
+    },
+    {
+      "h" : 0,
+      "m" : 19,
+      "s" : 1,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1141
+    },
+    {
+      "h" : 0,
+      "m" : 19,
+      "s" : 29,
+      "scene" : "caught",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Simon Petrus aber folgete Jesu nach und ein ander Jünger.",
+      "nl" : "En Simon Petrus en een andere discipel volgden Jezus.",
+      "time" : 1169
+    },
+    {
+      "h" : 0,
+      "m" : 19,
+      "s" : 39,
+      "scene" : "caught",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1179
+    },
+    {
+      "h" : 0,
+      "m" : 20,
+      "s" : 4,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Ich folge dir gleichfalls mit freudigen Schritten\nUnd lasse dich nicht,\nMein Leben, mein Licht.",
+      "nl" : "Ik volg U eveneens met vreugdevolle schreden\nen verlaat u niet,\nmijn leven, mijn licht.",
+      "time" : 1204
+    },
+    {
+      "h" : 0,
+      "m" : 20,
+      "s" : 36,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1236
+    },
+    {
+      "h" : 0,
+      "m" : 20,
+      "s" : 48,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Befördre den Lauf\nUnd höre nicht auf,\nSelbst an mir zu ziehen,\nzu schieben, zu bitten. ",
+      "nl" : "Begunstig mijn pad\nen houd niet op\nzelf aan mij te trekken,\nme bij te sturen, me aan te sporen.",
+      "time" : 1248
+    },
+    {
+      "h" : 0,
+      "m" : 21,
+      "s" : 12,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1272
+    },
+    {
+      "h" : 0,
+      "m" : 21,
+      "s" : 28,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Befördre den Lauf\nUnd höre nicht auf,\nSelbst an mir zu ziehen,\nzu schieben, zu bitten. ",
+      "nl" : "Begunstig mijn pad\nen houd niet op\nzelf aan mij te trekken,\nme bij te sturen, me aan te sporen.",
+      "time" : 1288
+    },
+    {
+      "h" : 0,
+      "m" : 22,
+      "s" : 17,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1337
+    },
+    {
+      "h" : 0,
+      "m" : 22,
+      "s" : 23,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Ich folge dir gleichfalls mit freudigen Schritten\nUnd lasse dich nicht,\nMein Leben, mein Licht.",
+      "nl" : "Ik volg U eveneens met vreugdevolle schreden\nen verlaat u niet,\nmijn leven, mijn licht.",
+      "time" : 1343
+    },
+    {
+      "h" : 0,
+      "m" : 23,
+      "s" : 17,
+      "scene" : "caught",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1397
+    },
+    {
+      "h" : 0,
+      "m" : 23,
+      "s" : 37,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Derselbige Jünger war dem Hohenpriester bekannt und ging mit Jesu hinein in des Hohenpriesters Palast. Petrus aber stund draußen vor der Tür. ",
+      "nl" : "En die discipel was een bekende van de hogepriester en hij ging met Jezus het paleis van de hogepriester binnen, maar Petrus stond buiten aan de poort.",
+      "time" : 1417
+    },
+    {
+      "h" : 0,
+      "m" : 24,
+      "s" : 0,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da ging der andere Jünger, der dem Hohenpriester bekannt war, hinaus und redete mit der Türhüterin und führete Petrum hinein. ",
+      "nl" : "De andere discipel dan, de bekende van de hogepriester, kwam naar buiten, en hij sprak met de portierster en bracht Petrus binnen. ",
+      "time" : 1440
+    },
+    {
+      "h" : 0,
+      "m" : 24,
+      "s" : 17,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da sprach die Magd, die Türhüterin, zu Petro:",
+      "nl" : "De slavin dan, die portierster was, zeide tot Petrus:",
+      "time" : 1457
+    },
+    {
+      "h" : 0,
+      "m" : 24,
+      "s" : 25,
+      "scene" : "palace",
+      "rol" : "slavin",
+      "f" : "show",
+      "de" : "Bist du nicht dieses Menschen Jünger einer?",
+      "nl" : "Gij behoort toch ook niet tot de discipelen van deze mens?",
+      "time" : 1465
+    },
+    {
+      "h" : 0,
+      "m" : 24,
+      "s" : 30,
+      "scene" : "palace",
+      "rol" : "slavin",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1470
+    },
+    {
+      "h" : 0,
+      "m" : 24,
+      "s" : 30,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Er sprach:",
+      "nl" : "Hij zeide:",
+      "time" : 1470
+    },
+    {
+      "h" : 0,
+      "m" : 24,
+      "s" : 33,
+      "scene" : "palace",
+      "rol" : "petrus",
+      "f" : "show",
+      "de" : "Ich bins nicht!",
+      "nl" : "Ik niet!",
+      "time" : 1473
+    },
+    {
+      "h" : 0,
+      "m" : 24,
+      "s" : 38,
+      "scene" : "palace",
+      "rol" : "petrus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1478
+    },
+    {
+      "h" : 0,
+      "m" : 24,
+      "s" : 38,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Es stunden aber die Knechte und Diener und hatten ein Kohlfeu’r gemacht (denn es war kalt) und wärmeten sich. Petrus aber stund bei ihnen und wärmete sich.",
+      "nl" : "De slaven en de dienaars stonden zich te warmen bij een kolenvuur, dat zij aangelegd hadden want het was koud, en ook Petrus stond zich bij hen te warmen. ",
+      "time" : 1478
+    },
+    {
+      "h" : 0,
+      "m" : 25,
+      "s" : 3,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Aber der Hohepriester fragte Jesum um seine Jünger und um seine Lehre. Jesus antwortete ihm:",
+      "nl" : "De hogepriester dan vroeg Jezus naar zijn discipelen en naar zijn leer. Jezus antwoordde hem:",
+      "time" : 1503
+    },
+    {
+      "h" : 0,
+      "m" : 25,
+      "s" : 17,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Ich habe frei, öffentlich geredet vor der Welt. Ich habe allezeit gelehret in der Schule und in dem Tempel, da alle Juden zusammenkommen, und habe nichts im Verborgnen geredet.",
+      "nl" : "Ik heb vrijuit tot de wereld gesproken; Ik heb voortdurend in de synagoge geleerd en in de tempel, waar al de Joden bijeenkomen, en in het verborgen heb Ik niets gesproken.",
+      "time" : 1517
+    },
+    {
+      "h" : 0,
+      "m" : 25,
+      "s" : 43,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Was fragest du mich darum? Frage die darum, die gehöret haben, was ich zu ihnen geredet habe! Siehe, dieselbigen wissen, was ich gesaget habe!",
+      "nl" : "Waarom vraagt gij Mij? Vraag hun, die gehoord hebben, wat Ik tot hen gesproken heb; zie, dezen weten, wat Ik gezegd heb.",
+      "time" : 1543
+    },
+    {
+      "h" : 0,
+      "m" : 26,
+      "s" : 8,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1568
+    },
+    {
+      "h" : 0,
+      "m" : 26,
+      "s" : 8,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Als er aber solches redete, gab der Diener einer, die dabeistunden, Jesu einen Backenstreich und sprach:",
+      "nl" : "En toen Hij dit zeide, gaf een van de dienaars, die erbij stond, Jezus een slag in het gelaat en zeide:",
+      "time" : 1568
+    },
+    {
+      "h" : 0,
+      "m" : 26,
+      "s" : 18,
+      "scene" : "palace",
+      "rol" : "slaaf",
+      "f" : "show",
+      "de" : "Solltest du dem Hohenpriester also antworten?",
+      "nl" : "Antwoordt Gij zo de hogepriester?",
+      "time" : 1578
+    },
+    {
+      "h" : 0,
+      "m" : 26,
+      "s" : 25,
+      "scene" : "palace",
+      "rol" : "slaaf",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1585
+    },
+    {
+      "h" : 0,
+      "m" : 26,
+      "s" : 25,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Jesus aber antwortete:",
+      "nl" : "Jezus antwoordde hem:",
+      "time" : 1585
+    },
+    {
+      "h" : 0,
+      "m" : 26,
+      "s" : 30,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Hab ich übel geredt, so beweise es, daß es böse sei, hab ich aber recht geredt, was schlägest du mich?",
+      "nl" : "Indien Ik verkeerd gesproken heb, geef aan wat verkeerd was, maar indien het goed was waarom slaat gij Mij?",
+      "time" : 1590
+    },
+    {
+      "h" : 0,
+      "m" : 26,
+      "s" : 48,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1608
+    },
+    {
+      "h" : 0,
+      "m" : 26,
+      "s" : 48,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1608
+    },
+    {
+      "h" : 0,
+      "m" : 26,
+      "s" : 52,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Wer hat dich so geschlagen,\nMein Heil, und dich mit Plagen\nSo übel zugericht’?\nDu bist ja nicht ein Sünder,\r\nWie wir und unsre Kinder,\r\nVon Missetaten weißt du nicht.",
+      "nl" : "Wie heeft U zo geslagen,\r\nmijn Heiland, en U met plagen\r\nzoveel kwaad gedaan?\r\nGij zijt toch immers geen zondaar,\r\nzoals wij en onze kinderen;\r\nvan euveldaden weet Gij niet.",
+      "time" : 1612
+    },
+    {
+      "h" : 0,
+      "m" : 27,
+      "s" : 38,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Ich, ich und meine Sünden,\r\nDie sich wie Körnlein finden\r\nDes Sandes an dem Meer,\r\nDie haben dir erreget\r\nDas Elend, das dich schläget,\r\nUnd das betrübte Marterheer.",
+      "nl" : "Ik, ik en mijn zonden\r\ndie zich als de korrels van het zand\r\naan zee laten vinden,\r\ndíe hebben U toch\r\nde ellende berokkend, die U treft,\r\nen de droevige schare van martelaren.",
+      "time" : 1658
+    },
+    {
+      "h" : 0,
+      "m" : 28,
+      "s" : 26,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1706
+    },
+    {
+      "h" : 0,
+      "m" : 28,
+      "s" : 32,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Und Hannas sandte ihn gebunden zu dem Hohenpriester Kaiphas. Simon Petrus stund und wärmete sich; da sprachen sie zu ihm:",
+      "nl" : "Annas dan zond Hem geboeid naar Kajafas, de hogepriester. En Simon Petrus stond zich te warmen. Zij zeiden dan tot hem:",
+      "time" : 1712
+    },
+    {
+      "h" : 0,
+      "m" : 28,
+      "s" : 48,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "show",
+      "de" : "Bist du nicht seiner Jünger einer?",
+      "nl" : "Gij behoort toch ook niet tot zijn discipelen?",
+      "time" : 1728
+    },
+    {
+      "h" : 0,
+      "m" : 29,
+      "s" : 12,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1752
+    },
+    {
+      "h" : 0,
+      "m" : 29,
+      "s" : 12,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Er leugnete aber und sprach:",
+      "nl" : "Hij ontkende het en zeide:",
+      "time" : 1752
+    },
+    {
+      "h" : 0,
+      "m" : 29,
+      "s" : 14,
+      "scene" : "palace",
+      "rol" : "petrus",
+      "f" : "show",
+      "de" : "Ich bins nicht!",
+      "nl" : "Ik niet!",
+      "time" : 1754
+    },
+    {
+      "h" : 0,
+      "m" : 29,
+      "s" : 19,
+      "scene" : "palace",
+      "rol" : "petrus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1759
+    },
+    {
+      "h" : 0,
+      "m" : 29,
+      "s" : 19,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Spricht des Hohenpriesters Knecht’ einer, ein Gefreundter des, dem Petrus das Ohr abgehauen hatte:",
+      "nl" : "Een der slaven van de hogepriester, een verwant van hem, wiens oor Petrus had afgeslagen, zeide:",
+      "time" : 1759
+    },
+    {
+      "h" : 0,
+      "m" : 29,
+      "s" : 28,
+      "scene" : "palace",
+      "rol" : "dienaar",
+      "f" : "show",
+      "de" : "Sahe ich dich nicht im Garten bei ihm?",
+      "nl" : "Zag ik u niet in de hof met Hem?",
+      "time" : 1768
+    },
+    {
+      "h" : 0,
+      "m" : 29,
+      "s" : 33,
+      "scene" : "palace",
+      "rol" : "dienaar",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1773
+    },
+    {
+      "h" : 0,
+      "m" : 29,
+      "s" : 33,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da verleugnete Petrus abermal, und alsobald krähete der Hahn. Da gedachte Petrus an die Worte Jesu und ging hinaus und weinete bitterlich.",
+      "nl" : "Petrus dan ontkende het wederom en terstond daarop kraaide een haan. Daarop herinnerde Petrus zich de woorden van Jezus en ging naar buiten en weende bitter.",
+      "time" : 1773
+    },
+    {
+      "h" : 0,
+      "m" : 30,
+      "s" : 55,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 1855
+    },
+    {
+      "h" : 0,
+      "m" : 31,
+      "s" : 26,
+      "scene" : "palace",
+      "rol" : "petrus",
+      "f" : "show",
+      "de" : "Ach, mein Sinn,\nWo willt du endlich hin,\nWo soll ich mich erquicken?",
+      "nl" : "Ach, mijn geest,\nwaar wil je uiteindelijk heen,\nwaar zal ik mij verkwikken?",
+      "time" : 1886
+    },
+    {
+      "h" : 0,
+      "m" : 32,
+      "s" : 13,
+      "scene" : "palace",
+      "rol" : "petrus",
+      "f" : "show",
+      "de" : "Bleib ich hier,\nOder wünsch ich mir\nBerg und Hügel auf den Rücken?",
+      "nl" : "Blijf ik hier,\nof wens ik mij\nberg en heuvel op mijn rug?",
+      "time" : 1933
+    },
+    {
+      "h" : 0,
+      "m" : 32,
+      "s" : 39,
+      "scene" : "palace",
+      "rol" : "petrus",
+      "f" : "show",
+      "de" : "Bei der Welt ist gar kein Rat,\r\nUnd im Herzen\r\nStehn die Schmerzen\r\nMeiner Missetat,\r\nWeil der Knecht den Herrn verleugnet hat.",
+      "nl" : "In de wereld is helemaal geen raad\r\nen in mijn hart\r\nstaan de pijnigingen\r\nvan mijn wandaad,\r\nomdat de knecht zijn heer verloochend heeft.",
+      "time" : 1959
+    },
+    {
+      "h" : 0,
+      "m" : 33,
+      "s" : 20,
+      "scene" : "palace",
+      "rol" : "petrus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2000
+    },
+    {
+      "h" : 0,
+      "m" : 33,
+      "s" : 30,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Petrus, der nicht denkt zurück,\nSeinen Gott verneinet,\nDer doch auf ein’ ernsten Blick\nBitterlichen weinet.",
+      "nl" : "Petrus, die het zich niet herinnert,\nverloochent zijn God,\nmaar bij een ernstige blik\nmoet hij toch bitter wenen.",
+      "time" : 2010
+    },
+    {
+      "h" : 0,
+      "m" : 33,
+      "s" : 57,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Jesu, blicke mich auch an,\r\nWenn ich nicht will büßen;\r\nWenn ich Böses hab getan,\r\nRühre mein Gewissen!",
+      "nl" : "Jezus, kijk mij ook zo aan,\r\nals ik niet wil boeten;\r\nals ik kwaad gedaan heb,\r\nraak dan mijn geweten aan!",
+      "time" : 2037
+    },
+    {
+      "h" : 0,
+      "m" : 34,
+      "s" : 29,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2069
+    },
+    {
+      "h" : 0,
+      "m" : 34,
+      "s" : 40,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Christus, der uns selig macht,\r\nKein Bös’ hat begangen,\r\nDer ward für uns in der Nacht\r\nAls ein Dieb gefangen,",
+      "nl" : "Christus, die ons zalig maakt,\r\ndie geen kwaad heeft bedreven,\r\ndie werd voor ons in de nacht\r\nals een dief gevangengenomen.",
+      "time" : 2080
+    },
+    {
+      "h" : 0,
+      "m" : 35,
+      "s" : 4,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Geführt vor gottlose Leut\r\nUnd fälschlich verklaget,\r\nVerlacht, verhöhnt und verspeit,\r\nWie denn die Schrift saget.",
+      "nl" : "Geleid voor goddeloze lieden\r\nen valselijk beschuldigd,\r\nbespot, beschimpt en bespuwd,\r\nzoals de Schrift het zegt.",
+      "time" : 2104
+    },
+    {
+      "h" : 0,
+      "m" : 35,
+      "s" : 36,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2136
+    },
+    {
+      "h" : 0,
+      "m" : 35,
+      "s" : 42,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da führeten sie Jesum von Kaiphas vor das Richthaus, und es war frühe. Und sie gingen nicht in das Richthaus, auf daß sie nicht unrein würden, sondern Ostern essen möchten. ",
+      "nl" : "Zij brachten Jezus dan van Kajafas naar het gerechtsgebouw. En het was vroeg in de morgen; doch zelf gingen zij het gerechtsgebouw niet binnen, om zich niet te verontreinigen, maar het Pascha te kunnen eten. ",
+      "time" : 2142
+    },
+    {
+      "h" : 0,
+      "m" : 36,
+      "s" : 7,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da ging Pilatus zu ihnen heraus und sprach:",
+      "nl" : "Pilatus dan kwam tot hen naar buiten en zeide:",
+      "time" : 2167
+    },
+    {
+      "h" : 0,
+      "m" : 36,
+      "s" : 12,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Was bringet ihr für Klage wider diesen Menschen?",
+      "nl" : "Welke aanklacht brengt gij tegen deze mens in?",
+      "time" : 2172
+    },
+    {
+      "h" : 0,
+      "m" : 36,
+      "s" : 16,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2176
+    },
+    {
+      "h" : 0,
+      "m" : 36,
+      "s" : 16,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Sie antworteten und sprachen zu ihm:",
+      "nl" : "Zij antwoordden en zeiden tot hem:",
+      "time" : 2176
+    },
+    {
+      "h" : 0,
+      "m" : 36,
+      "s" : 19,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "show",
+      "de" : "Wäre dieser nicht ein Übeltäter, wir hätten dir ihn nicht überantwortet.",
+      "nl" : "Indien Hij geen boosdoener was, zouden wij Hem niet aan u overgeleverd hebben.",
+      "time" : 2179
+    },
+    {
+      "h" : 0,
+      "m" : 37,
+      "s" : 24,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2244
+    },
+    {
+      "h" : 0,
+      "m" : 37,
+      "s" : 24,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da sprach Pilatus zu ihnen:",
+      "nl" : "Pilatus dan zeide tot hen:",
+      "time" : 2244
+    },
+    {
+      "h" : 0,
+      "m" : 37,
+      "s" : 28,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "So nehmet ihr ihn hin und richtet ihn nach eurem Gesetze!",
+      "nl" : "Neemt gij Hem en oordeelt Hem naar uw wet.",
+      "time" : 2248
+    },
+    {
+      "h" : 0,
+      "m" : 37,
+      "s" : 34,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2254
+    },
+    {
+      "h" : 0,
+      "m" : 37,
+      "s" : 34,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da sprachen die Juden zu ihm:",
+      "nl" : "De Joden dan zeiden tot hem:",
+      "time" : 2254
+    },
+    {
+      "h" : 0,
+      "m" : 37,
+      "s" : 37,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "show",
+      "de" : "Wir dürfen niemand töten.",
+      "nl" : "Het is ons niet geoorloofd iemand ter dood te brengen.",
+      "time" : 2257
+    },
+    {
+      "h" : 0,
+      "m" : 38,
+      "s" : 15,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2295
+    },
+    {
+      "h" : 0,
+      "m" : 38,
+      "s" : 15,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Auf daß erfüllet würde das Wort Jesu, welches er sagte, da er deutete, welches Todes er sterben würde. Da ging Pilatus wieder hinein in das Richthaus und rief Jesu und sprach zu ihm:",
+      "nl" : "opdat het woord van Jezus vervuld werd, dat Hij gezegd had, aanduidende, welke dood Hij sterven zou. Pilatus dan keerde terug in het gerechtsgebouw en riep Jezus en zeide tot Hem:",
+      "time" : 2295
+    },
+    {
+      "h" : 0,
+      "m" : 38,
+      "s" : 32,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2312
+    },
+    {
+      "h" : 0,
+      "m" : 38,
+      "s" : 44,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Bist du der Juden König?",
+      "nl" : "Zijt Gij de Koning der Joden?",
+      "time" : 2324
+    },
+    {
+      "h" : 0,
+      "m" : 38,
+      "s" : 48,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2328
+    },
+    {
+      "h" : 0,
+      "m" : 38,
+      "s" : 48,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Jesus antwortete:",
+      "nl" : "Jezus antwoordde:",
+      "time" : 2328
+    },
+    {
+      "h" : 0,
+      "m" : 38,
+      "s" : 52,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Redest du das von dir selbst, oder habens dir andere von mir gesagt?",
+      "nl" : "Zegt gij dit uit uzelf of hebben anderen u over Mij gesproken?",
+      "time" : 2332
+    },
+    {
+      "h" : 0,
+      "m" : 39,
+      "s" : 1,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2341
+    },
+    {
+      "h" : 0,
+      "m" : 39,
+      "s" : 1,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Pilatus antwortete:",
+      "nl" : "Pilatus antwoordde:",
+      "time" : 2341
+    },
+    {
+      "h" : 0,
+      "m" : 39,
+      "s" : 5,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Bin ich ein Jude? Dein Volk und die Hohenpriester haben dich mir überantwortet; was hast du getan?",
+      "nl" : "Ben ik soms een Jood? Uw volk en de overpriesters hebben U aan mij overgeleverd; wat hebt Gij gedaan?",
+      "time" : 2345
+    },
+    {
+      "h" : 0,
+      "m" : 39,
+      "s" : 14,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2354
+    },
+    {
+      "h" : 0,
+      "m" : 39,
+      "s" : 14,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Jesus antwortete:",
+      "nl" : "Jezus antwoordde:",
+      "time" : 2354
+    },
+    {
+      "h" : 0,
+      "m" : 39,
+      "s" : 19,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Mein Reich ist nicht von dieser Welt; wäre mein Reich von dieser Welt, meine Diener würden darob kämpfen, daß ich den Juden nicht überantwortet würde; aber nun ist mein Reich nicht von dannen.",
+      "nl" : "Mijn Koninkrijk is niet van deze wereld; indien mijn Koninkrijk van deze wereld geweest was zouden mijn dienaars gestreden hebben opdat Ik niet aan de Joden zou worden overgeleverd; nu echter is mijn Koninkrijk niet van hier.",
+      "time" : 2359
+    },
+    {
+      "h" : 0,
+      "m" : 39,
+      "s" : 52,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2392
+    },
+    {
+      "h" : 0,
+      "m" : 39,
+      "s" : 52,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2392
+    },
+    {
+      "h" : 0,
+      "m" : 39,
+      "s" : 57,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Ach großer König, groß zu allen Zeiten,\r\nWie kann ich gnugsam diese Treu ausbreiten?\r\nKeins Menschen Herze mag indes ausdenken,\r\nWas dir zu schenken.",
+      "nl" : "O grote Koning, groot te allen tijde,\r\nhoe kan ik deze trouw voldoende verspreiden?\r\nGeen mensenhart kan toch bedenken,\r\nwat U te schenken.",
+      "time" : 2397
+    },
+    {
+      "h" : 0,
+      "m" : 40,
+      "s" : 38,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Ich kanns mit meinen Sinnen nicht erreichen,\r\nWomit doch dein Erbarmen zu vergleichen.\r\nWie kann ich dir denn deine Liebestaten\r\nIm Werk erstatten?",
+      "nl" : "Ik kan er met mijn verstand niet bij\r\nwaarmee Uw ontferming toch te vergelijken is.\r\nHoe kan ik U dan uw liefdesdaden\r\nin mijn werken terugbetalen?",
+      "time" : 2438
+    },
+    {
+      "h" : 0,
+      "m" : 41,
+      "s" : 21,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2481
+    },
+    {
+      "h" : 0,
+      "m" : 41,
+      "s" : 26,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da sprach Pilatus zu ihm:",
+      "nl" : "Pilatus dan zeide tot Hem:",
+      "time" : 2486
+    },
+    {
+      "h" : 0,
+      "m" : 41,
+      "s" : 31,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "So bist du dennoch ein König?",
+      "nl" : "Zijt Gij dus toch een koning?",
+      "time" : 2491
+    },
+    {
+      "h" : 0,
+      "m" : 41,
+      "s" : 34,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2494
+    },
+    {
+      "h" : 0,
+      "m" : 41,
+      "s" : 34,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Jesus antwortete:",
+      "nl" : "Jezus antwoordde:",
+      "time" : 2494
+    },
+    {
+      "h" : 0,
+      "m" : 41,
+      "s" : 38,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Du sagsts, ich bin ein König. Ich bin dazu geboren und in die Welt kommen, daß ich die Wahrheit zeugen soll. Wer aus der Wahrheit ist, der höret meine Stimme.",
+      "nl" : "Gij zegt, dat Ik koning ben. Hiertoe ben Ik geboren en hiertoe ben Ik in de wereld gekomen, opdat Ik voor de waarheid zou getuigen; een ieder, die uit de waarheid is, hoort maar mijn stem.",
+      "time" : 2498
+    },
+    {
+      "h" : 0,
+      "m" : 42,
+      "s" : 10,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2530
+    },
+    {
+      "h" : 0,
+      "m" : 42,
+      "s" : 10,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Spricht Pilatus zu ihm:",
+      "nl" : "Pilatus zeide tot Hem:",
+      "time" : 2530
+    },
+    {
+      "h" : 0,
+      "m" : 42,
+      "s" : 13,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Was ist Wahrheit?",
+      "nl" : "Wat is waarheid?",
+      "time" : 2533
+    },
+    {
+      "h" : 0,
+      "m" : 42,
+      "s" : 17,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2537
+    },
+    {
+      "h" : 0,
+      "m" : 42,
+      "s" : 17,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Und da er das gesaget, ging er wieder hinaus zu den Juden und spricht zu ihnen:",
+      "nl" : "En na dit gezegd te hebben, kwam hij weder naar buiten tot de Joden en zeide tot hen:",
+      "time" : 2537
+    },
+    {
+      "h" : 0,
+      "m" : 42,
+      "s" : 27,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Ich finde keine Schuld an ihm. Ihr habt aber eine Gewohnheit, daß ich euch einen losgebe; wollt ihr nun, daß ich euch der Juden König losgebe?",
+      "nl" : "Ik vind geen schuld in Hem. Maar bij u bestaat het gebruik, dat ik u op Pascha iemand loslaat: wilt gij dan dat ik u de Koning der Joden loslaat?",
+      "time" : 2547
+    },
+    {
+      "h" : 0,
+      "m" : 42,
+      "s" : 43,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2563
+    },
+    {
+      "h" : 0,
+      "m" : 42,
+      "s" : 43,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da schrieen sie wieder allesamt und sprachen:",
+      "nl" : "Zij schreeuwden dan wederom en zeiden:",
+      "time" : 2563
+    },
+    {
+      "h" : 0,
+      "m" : 42,
+      "s" : 46,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "show",
+      "de" : "Nicht diesen, sondern Barrabam!",
+      "nl" : "Hem niet, maar Barabbas!",
+      "time" : 2566
+    },
+    {
+      "h" : 0,
+      "m" : 42,
+      "s" : 57,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Barrabas aber war ein Mörder. Da nahm Pilatus Jesum und geißelte ihn.",
+      "nl" : "En Barabbas was een rover. Toen nam dan Pilatus Jezus en liet Hem geselen.",
+      "time" : 2577
+    },
+    {
+      "h" : 0,
+      "m" : 43,
+      "s" : 19,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2599
+    },
+    {
+      "h" : 0,
+      "m" : 43,
+      "s" : 19,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2599
+    },
+    {
+      "h" : 0,
+      "m" : 43,
+      "s" : 39,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Betrachte, meine Seel, mit ängstlichem Vergnügen,\r\nMit bittrer Lust und halb beklemmtem Herzen\r\nDein höchstes Gut in Jesu Schmerzen,\r\nWie dir auf Dornen, so ihn stechen,\r\nDie Himmelsschlüsselblumen blühn!",
+      "nl" : "Beschouw, mijn ziel, met angstig genoegen,\r\nmet bittere vreugde en half beklemd hart,\r\nje hoogste goed in Jezus’ smarten,\r\nhoe voor jou op de doornen, die hem steken\r\nde hemel-sleutelbloemen bloeien!",
+      "time" : 2619
+    },
+    {
+      "h" : 0,
+      "m" : 44,
+      "s" : 39,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Du kannst viel süße Frucht von seiner Wermut brechen,\r\nDrum sieh ohn Unterlaß auf ihn!",
+      "nl" : "Je kunt vele zoete vruchten van zijn bitterheid plukken,\r\nhoudt Hem daarom zonder onderbreking in het oog.",
+      "time" : 2679
+    },
+    {
+      "h" : 0,
+      "m" : 45,
+      "s" : 33,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2733
+    },
+    {
+      "h" : 0,
+      "m" : 46,
+      "s" : 30,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Erwäge, wie sein blutgefärbter Rücken\nIn allen Stücken\nDem Himmel gleiche geht,",
+      "nl" : "Bedenk, hoe Zijn door bloed gekleurde rug\nin alle opzichten\nmet de hemel overeenstemt,",
+      "time" : 2790
+    },
+    {
+      "h" : 0,
+      "m" : 48,
+      "s" : 24,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 2904
+    },
+    {
+      "h" : 0,
+      "m" : 48,
+      "s" : 51,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Daran, nachdem die Wasserwogen\r\nVon unsrer Sündflut sich verzogen,\r\nDer allerschönste Regenbogen\r\nAls Gottes Gnadenzeichen steht!",
+      "nl" : "waaraan, nadat de watergolven\r\nvan onze zondvloed zich hebben teruggetrokken,\r\nde allermooiste regenboog\r\nals Gods genadeteken staat!",
+      "time" : 2931
+    },
+    {
+      "h" : 0,
+      "m" : 50,
+      "s" : 0,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3000
+    },
+    {
+      "h" : 0,
+      "m" : 50,
+      "s" : 13,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Daran, nachdem die Wasserwogen\r\nVon unsrer Sündflut sich verzogen,\r\nDer allerschönste Regenbogen\r\nAls Gottes Gnadenzeichen steht!",
+      "nl" : "waaraan, nadat de watergolven\r\nvan onze zondvloed zich hebben teruggetrokken,\r\nde allermooiste regenboog\r\nals Gods genadeteken staat!",
+      "time" : 3013
+    },
+    {
+      "h" : 0,
+      "m" : 51,
+      "s" : 20,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3080
+    },
+    {
+      "h" : 0,
+      "m" : 52,
+      "s" : 11,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Erwäge, wie sein blutgefärbter Rücken\nIn allen Stücken\nDem Himmel gleiche geht,",
+      "nl" : "Bedenk, hoe Zijn door bloed gekleurde rug\nin alle opzichten\nmet de hemel overeenstemt,",
+      "time" : 3131
+    },
+    {
+      "h" : 0,
+      "m" : 54,
+      "s" : 1,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3241
+    },
+    {
+      "h" : 0,
+      "m" : 54,
+      "s" : 43,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Und die Kriegsknechte flochten eine Krone von Dornen und satzten\r\nsie auf sein Haupt und legten ihm ein Purpurkleid an und sprachen:",
+      "nl" : "En de soldaten vlochten een kroon van doornen, zetten die op zijn hoofd en deden Hem een purperen kleed om, en zij traden op Hem toe en zeiden:",
+      "time" : 3283
+    },
+    {
+      "h" : 0,
+      "m" : 55,
+      "s" : 2,
+      "scene" : "palace",
+      "rol" : "soldaten",
+      "f" : "show",
+      "de" : "Sei gegrüßet, lieber Judenkönig!",
+      "nl" : "Gegroet, Koning der Joden!",
+      "time" : 3302
+    },
+    {
+      "h" : 0,
+      "m" : 55,
+      "s" : 36,
+      "scene" : "palace",
+      "rol" : "soldaten",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3336
+    },
+    {
+      "h" : 0,
+      "m" : 55,
+      "s" : 36,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Und gaben ihm Backenstreiche. Da ging Pilatus wieder heraus und sprach zu ihnen:",
+      "nl" : "En zij gaven Hem slagen in het gelaat. En Pilatus kwam wederom naar buiten en zeide tot hen:",
+      "time" : 3336
+    },
+    {
+      "h" : 0,
+      "m" : 55,
+      "s" : 47,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Sehet, ich führe ihn heraus zu euch, daß ihr erkennet, daß ich keine Schuld an ihm finde.",
+      "nl" : "Zie, ik breng Hem voor u naar buiten, opdat gij weet, dat ik geen schuld in Hem vind.",
+      "time" : 3347
+    },
+    {
+      "h" : 0,
+      "m" : 55,
+      "s" : 58,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3358
+    },
+    {
+      "h" : 0,
+      "m" : 55,
+      "s" : 59,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Also ging Jesus heraus und trug eine Dornenkrone und Purpurkleid. Und er sprach zu ihnen:",
+      "nl" : "Jezus dan kwam naar buiten met de doornenkroon en het purperen kleed. En hij zeide tot hen:",
+      "time" : 3359
+    },
+    {
+      "h" : 0,
+      "m" : 56,
+      "s" : 18,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Sehet, welch ein Mensch!",
+      "nl" : "Zie, de mens!",
+      "time" : 3378
+    },
+    {
+      "h" : 0,
+      "m" : 56,
+      "s" : 24,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3384
+    },
+    {
+      "h" : 0,
+      "m" : 56,
+      "s" : 24,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da ihn die Hohenpriester und die Diener sahen, schrieen sie und sprachen:",
+      "nl" : "Toen dan de overpriesters en hun dienaars Hem zagen, schreeuwden zij en zeiden:",
+      "time" : 3384
+    },
+    {
+      "h" : 0,
+      "m" : 56,
+      "s" : 30,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "show",
+      "de" : "Kreuzige, kreuzige!\t\r",
+      "nl" : "Kruisigen, kruisigen!",
+      "time" : 3390
+    },
+    {
+      "h" : 0,
+      "m" : 57,
+      "s" : 24,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Pilatus sprach zu ihnen:",
+      "nl" : "Pilatus zeide tot hen:",
+      "time" : 3444
+    },
+    {
+      "h" : 0,
+      "m" : 57,
+      "s" : 28,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Nehmet ihr ihn hin und kreuziget ihn; denn ich finde keine Schuld an ihm!",
+      "nl" : "Neemt gij Hem en kruisigt Hem want ik vind geen schuld in Hem.",
+      "time" : 3448
+    },
+    {
+      "h" : 0,
+      "m" : 57,
+      "s" : 36,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3456
+    },
+    {
+      "h" : 0,
+      "m" : 57,
+      "s" : 36,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3456
+    },
+    {
+      "h" : 0,
+      "m" : 57,
+      "s" : 36,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Die Juden antworteten ihm:",
+      "nl" : "De Joden antwoordden hem:",
+      "time" : 3456
+    },
+    {
+      "h" : 0,
+      "m" : 57,
+      "s" : 40,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "show",
+      "de" : "Wir haben ein Gesetz, und nach dem Gesetz soll er sterben; denn er hat sich selbst zu Gottes Sohn gemacht.",
+      "nl" : "Wij hebben een wet en naar die wet moet Hij sterven, want Hij heeft Zichzelf Gods Zoon gemaakt.",
+      "time" : 3460
+    },
+    {
+      "h" : 0,
+      "m" : 58,
+      "s" : 55,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3535
+    },
+    {
+      "h" : 0,
+      "m" : 58,
+      "s" : 55,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da Pilatus das Wort hörete, fürchtet’ er sich noch mehr und ging wieder hinein in das Richthaus und spricht zu Jesu:",
+      "nl" : "Toen Pilatus dan dit woord hoorde, werd hij nog meer bevreesd, en hij ging weder het gerechtsgebouw binnen en zeide tot Jezus:",
+      "time" : 3535
+    },
+    {
+      "h" : 0,
+      "m" : 59,
+      "s" : 9,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Von wannen bist du?",
+      "nl" : "Waar zijt Gij vandaan?",
+      "time" : 3549
+    },
+    {
+      "h" : 0,
+      "m" : 59,
+      "s" : 14,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3554
+    },
+    {
+      "h" : 0,
+      "m" : 59,
+      "s" : 14,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Aber Jesus gab ihm keine Antwort. Da sprach Pilatus zu ihm:",
+      "nl" : "Maar Jezus gaf hem geen antwoord. Pilatus dan zeide tot Hem:",
+      "time" : 3554
+    },
+    {
+      "h" : 0,
+      "m" : 59,
+      "s" : 25,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Redest du nicht mit mir? Weißest du nicht, daß ich Macht habe, dich zu kreuzigen, und Macht habe, dich loszugeben?",
+      "nl" : "Spreekt Gij niet tot mij? Weet Gij niet, dat ik macht heb U los te laten, maar ook macht om U te kruisigen?",
+      "time" : 3565
+    },
+    {
+      "h" : 0,
+      "m" : 59,
+      "s" : 36,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3576
+    },
+    {
+      "h" : 0,
+      "m" : 59,
+      "s" : 36,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Jesus anwortete:",
+      "nl" : "Jezus antwoordde:",
+      "time" : 3576
+    },
+    {
+      "h" : 0,
+      "m" : 59,
+      "s" : 40,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Du hättest keine Macht über mich, wenn sie dir nicht wäre von oben herab gegeben; darum, der mich dir überantwortet hat, der hat’s größ’re Sünde.",
+      "nl" : "Gij zoudt geen macht tegen Mij hebben indien het u niet van boven gegeven ware: daarom heeft hij, die Mij aan u heeft overgeleverd groter zonde.",
+      "time" : 3580
+    },
+    {
+      "h" : 1,
+      "m" : 0,
+      "s" : 0,
+      "scene" : "palace",
+      "rol" : "jezus",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : 0,
+      "s" : 1,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Von dem an trachtete Pilatus, wie er ihn losließe.",
+      "nl" : "Van toen af trachtte Pilatus Hem los te laten.",
+      "time" : 3601
+    },
+    {
+      "h" : 1,
+      "m" : 0,
+      "s" : 17,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : ""
+    },
+    {
+      "h" : 1,
+      "m" : 0,
+      "s" : 28,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Durch dein Gefängnis, Gottes Sohn,\r\nMuß uns die Freiheit kommen;\r\nDein Kerker ist der Gnadenthron,\r\nDie Freistatt aller Frommen;",
+      "nl" : "Door Uw gevangenschap, zoon van God,\r\nmoet voor ons de vrijheid komen;\r\nUw kerker is de genadetroon,\r\nde vrijplaats voor alle vromen;",
+      "time" : 3628
+    },
+    {
+      "h" : 1,
+      "m" : 0,
+      "s" : 57,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Denn gingst du nicht die Knechtschaft ein,\r\nMüßt unsre Knechtschaft ewig sein.",
+      "nl" : "Want als Gij niet de knechtschap was aangegaan,\r\nhad onze knechtschap eeuwig moeten zijn.",
+      "time" : 3657
+    },
+    {
+      "h" : 1,
+      "m" : 1,
+      "s" : 18,
+      "scene" : "palace",
+      "rol" : "koor",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : ""
+    },
+    {
+      "h" : 1,
+      "m" : 1,
+      "s" : 22,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Die Juden aber schrieen und sprachen:",
+      "nl" : "maar de Joden schreeuwden en zeiden:",
+      "time" : 3682
+    },
+    {
+      "h" : 1,
+      "m" : 1,
+      "s" : 26,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "show",
+      "de" : "Lässest du diesen los, so bist du des Kaisers Freund nicht; denn wer sich zum Könige machet, der ist wider den Kaiser.",
+      "nl" : "Indien gij deze loslaat, zijt gij geen vriend van de keizer; een ieder, die zich koning maakt, verzet zich tegen de keizer.",
+      "time" : 3686
+    },
+    {
+      "h" : 1,
+      "m" : 2,
+      "s" : 40,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da Pilatus das Wort hörete, führete er Jesum heraus und satzte sich auf den Richtstuhl, an der Stätte, die da heißet: Hochpflaster, auf Ebräisch aber: Gabbatha.",
+      "nl" : "Pilatus dan hoorde deze woorden en hij liet Jezus naar buiten brengen en zette zich op de rechterstoel, op de plaats, genaamd Litostrótos, in het Hebreeuws Gabbata. ",
+      "time" : 3760
+    },
+    {
+      "h" : 1,
+      "m" : 3,
+      "s" : 3,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Es war aber der Rüsttag in Ostern um die sechste Stunde, und er spricht zu den Juden:",
+      "nl" : "En het was Voorbereiding voor het Pascha, ongeveer het zesde uur, en hij zeide tot de Joden:",
+      "time" : 3783
+    },
+    {
+      "h" : 1,
+      "m" : 3,
+      "s" : 14,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Sehet, das ist euer König!",
+      "nl" : "Zie, uw koning!",
+      "time" : 3794
+    },
+    {
+      "h" : 1,
+      "m" : 3,
+      "s" : 19,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Sie schrieen aber:",
+      "nl" : "Zij dan schreeuwden:",
+      "time" : 3799
+    },
+    {
+      "h" : 1,
+      "m" : 3,
+      "s" : 21,
+      "scene" : "palace",
+      "rol" : "volk",
+      "f" : "show",
+      "de" : "Weg, weg mit dem, kreuzige ihn!",
+      "nl" : "Weg met Hem! Weg met Hem! Kruisig Hem!",
+      "time" : 3801
+    },
+    {
+      "h" : 1,
+      "m" : 4,
+      "s" : 18,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Spricht Pilatus zu ihnen:",
+      "nl" : "Pilatus zeide tot hen:",
+      "time" : 3858
+    },
+    {
+      "h" : 1,
+      "m" : 4,
+      "s" : 21,
+      "scene" : "palace",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Soll ich euren König kreuzigen?",
+      "nl" : "Moet ik uw koning kruisigen?",
+      "time" : 3861
+    },
+    {
+      "h" : 1,
+      "m" : 4,
+      "s" : 25,
+      "scene" : "palace",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Die Hohenpriester antworteten:",
+      "nl" : "De overpriesters antwoordden:",
+      "time" : 3865
+    },
+    {
+      "h" : 1,
+      "m" : 4,
+      "s" : 29,
+      "scene" : "palace",
+      "rol" : "hogepriesters",
+      "f" : "show",
+      "de" : "Wir haben keinen König denn den Kaiser.",
+      "nl" : "Wij hebben geen koning, alleen de keizer!",
+      "time" : 3869
+    },
+    {
+      "h" : 1,
+      "m" : 4,
+      "s" : 39,
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da überantwortete er ihn, daß er gekreuziget würde. Sie nahmen aber Jesum und führeten ihn hin. Und er trug sein Kreuz und ging hinaus zur Stätte, die da heißet Schädelstätt, welche heißet auf Ebräisch: Golgatha.",
+      "nl" : "Toen gaf hij Hem aan hen over om gekruisigd te worden. Zij dan namen Jezus en voerden hem heen, en Hij, zelf zijn kruis dragende, ging naar de zogenaamde Schedelplaats, in het Hebreeuws genaamd Golgota.",
+      "time" : 3879
+    },
+    {
+      "h" : 1,
+      "m" : 5,
+      "s" : 24,
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "hide",
+      "de" : "",
+      "nl" : "",
+      "time" : ""
+    },
+    {
+      "h" : 1,
+      "m" : 5,
+      "s" : 54,
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Eilt, ihr angefochtnen Seelen,\r\nGeht aus euren Marterhöhlen,",
+      "nl" : "Haast u, zwaar beproefde zielen,\r\nverlaat uw martelaarsholen.",
+      "time" : 3954
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Eilt – Wohin? – nach Golgatha!\r\nNehmet an des Glaubens Flügel,\r\nFlieht – Wohin? – zum Kreuzeshügel,\r\nEure Wohlfahrt blüht allda!",
+      "nl" : "Haast u – Waarheen?– naar Golgotha!\r\nGebruik de vleugels van het geloof,\r\nvlucht – Waarheen?– naar de heuvel van het kruis,\r\nuw welzijn bloeit aldaar.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Allda kreuzigten sie ihn, und mit ihm zween andere zu beiden Seiten, Jesum aber mitten inne.",
+      "nl" : "Daar kruisigden zij Hem, en met Hem twee anderen, aan weerszijden één, en Jezus in het midden.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Pilatus aber schrieb eine Überschrift und satzte sie auf das Kreuz, und war geschrieben: «Jesus von Nazareth, der Juden König». Diese Überschrift lasen viel Juden, denn die Stätte war nahe bei der Stadt, da Jesus gekreuziget ist. Und es war geschrieben auf hebräische, griechische und lateinische Sprache.",
+      "nl" : "En Pilatus liet ook een opschrift schrijven en op het kruis plaatsen; er was geschreven: «Jezus, de Nazoreeër, de Koning der Joden». Dit opschrift dan lazen vele der Joden; want de plaats, waar Jezus gekruisigd werd, was dicht bij de stad, en het was geschreven in het Hebreeuws, in het Latijn en in het Grieks.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da sprachen die Hohenpriester der Juden zu Pilato:",
+      "nl" : "De overpriesters der Joden dan zeiden tot Pilatus:",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "hogepriesters",
+      "f" : "show",
+      "de" : "Schreibe nicht: der Juden König, sondern daß er gesaget habe: Ich bin der Juden König.",
+      "nl" : "Schrijf niet: De Koning der Joden, maar dat Hij gezegd heeft: Ik ben de Koning der Joden.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Pilatus antwortet:",
+      "nl" : "Pilatus antwoordde:",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "pilatus",
+      "f" : "show",
+      "de" : "Was ich geschrieben habe, das habe ich geschrieben.",
+      "nl" : "Wat ik geschreven heb, dat heb ik geschreven.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "In meines Herzens Grunde,\r\nDein Nam und Kreuz allein\r\nFunkelt all Zeit und Stunde,\r\nDrauf kann ich fröhlich sein.",
+      "nl" : "In de grond van mijn hart\r\nfonkelt iedere tijd en uur\r\nUw naam en kruis alleen,\r\ndaarom kan ik vrolijk zijn.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Erschein mir in dem Bilde\r\nZu Trost in meiner Not,\r\nWie du, Herr Christ, so milde,\r\nDich hast geblut’ zu Tod!",
+      "nl" : "Verschijn mij in een visioen,\r\ntot troost in mijn nood\r\nhoe Gij, Heer Christus, zo mild\r\nUzelf hebt laten doodbloeden.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Die Kriegsknechte aber, da sie Jesum gekreuziget hatten, nahmen seine Kleider und machten vier Teile, einem jeglichen Kriegesknechte sein Teil, dazu auch den Rock. Der Rock aber war ungenähet, von oben an gewürket durch und durch. ",
+      "nl" : "Toen dan de soldaten Jezus gekruisigd hadden, namen zij zijn klederen en maakten daarvan vier delen, voor iedere soldaat één deel, en zijn onderkleed. Dit kleed nu was zonder naad, aan één stuk geweven. ",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da sprachen sie untereinander:",
+      "nl" : "Zij zeiden dan tot elkander:",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "soldaten",
+      "f" : "show",
+      "de" : "Lasset uns den nicht zerteilen, sondern darum losen, wes er sein soll.",
+      "nl" : "Laten wij dit niet scheuren, maar erom loten, voor wie het zijn zal;",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Auf daß erfüllet würde die Schrift, die da saget: «Sie haben meine Kleider unter sich geteilet und haben über meinen Rock das Los geworfen.» Solches taten die Kriegesknechte.",
+      "nl" : "zodat het schriftwoord vervuld werd: «Zij hebben mijn klederen onder elkander verdeeld en overmijn kleding hebben zij het lot geworpen». Dit hebben dan de soldaten gedaan.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Es stund aber bei dem Kreuze Jesu seine Mutter und seiner Mutter Schwester, Maria, Kleophas Weib, und Maria Magdalena. Da nun Jesus seine Mutter sahe und den Jünger dabei stehen, den er lieb hatte, spricht er zu seiner Mutter:",
+      "nl" : "En bij het kruis van Jezus stonden zijn moeder en de zuster zijner moeder, Maria van Klopas en Maria van Magdala. Toen dan Jezus zijn moeder zag en de discipel, die Hij liefhad, bij haar staande zeide Hij tot zijn moeder:",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Weib, siehe, das ist dein Sohn!",
+      "nl" : "Vrouw, zie, uw zoon.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Darnach spricht er zu dem Jünger:",
+      "nl" : "Daarna zeide Hij tot de discipel:",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Siehe, das ist deine Mutter!",
+      "nl" : "Zie, uw moeder.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Er nahm alles wohl in acht\r\nIn der letzten Stunde,\r\nSeine Mutter noch bedacht,\r\nSetzt ihr ein’ Vormunde.",
+      "nl" : "Hij droeg zorg voor alles\r\nop het laatste moment,\r\nZo bedacht Hij nog zijn moeder,\r\nen gaf haar een voogd.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "O Mensch, mache Richtigkeit,\r\nGott und Menschen liebe,\r\nStirb darauf ohn alles Leid\r\nUnd dich nicht betrübe!",
+      "nl" : "O mens, breng alles op orde,\r\nheb God en mensen lief,\r\nsterf dan zonder enig lijden\r\nen wees niet bedroefd!",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Und von Stund an nahm sie der Jünger zu sich.",
+      "nl" : "En van dat uur af nam de discipel haar bij zich in huis.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Darnach, als Jesus wußte, daß schon alles vollbracht war, daß die Schrift erfüllet würde, spricht er:",
+      "nl" : "Hierna zeide Jezus, daar Hij wist, dat alles reeds volbracht was, opdat de Schrift vervuld zou worden:",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Mich dürstet!",
+      "nl" : "Mij dorst!",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da stund ein Gefäße voll Essigs. Sie fülleten aber einen Schwamm mit Essig und legten ihn um einen Isopen und hielten es ihm dar zum Munde. Da nun Jesus den Essig genommen hatte, sprach er:",
+      "nl" : "Er stond een kruik vol zure wijn; zij staken dan een spons, gedrenkt met zure wijn, op een hysopstengel en brachten die aan zijn mond. Toen Jezus dan de zure wijn genomen had zeide Hij:",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "jezus",
+      "f" : "show",
+      "de" : "Es ist vollbracht!",
+      "nl" : "Het is volbracht!",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Es ist vollbracht!\r\nO Trost für die gekränkten Seelen!\r\nDie Trauernacht\r\nLäßt nun die letzte Stunde zählen.",
+      "nl" : "Het is volbracht!\r\nO troost voor de geprangde zielen!\r\nDe nacht van treurnis\r\nlaat het laatste uur slaan.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Der Held aus Juda siegt mit Macht\r\nUnd schließt den Kampf.\r\nEs ist vollbracht!",
+      "nl" : "De Held uit Juda zegeviert machtig\r\nen beslist de strijd.\r\nHet is volbracht!",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Und neiget das Haupt und verschied.",
+      "nl" : "En Hij boog het hoofd en gaf de geest.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Mein teurer Heiland, laß dich fragen,",
+      "nl" : "Mijn dierbare Heiland, laat ik U vragen,",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "antwoordkoor",
+      "f" : "show",
+      "de" : "Jesu, der du warest tot,",
+      "nl" : "Jezus, Gij die gestorven was,",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Da du nunmehr ans Kreuz geschlagen\r\nUnd selbst gesagt: Es ist vollbracht,",
+      "nl" : "Nu Gij daar aan het kruis geslagen bent\r\nen zelf gezegd heeft: Het is volbracht,",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "antwoordkoor",
+      "f" : "show",
+      "de" : "Lebest nun ohn Ende,",
+      "nl" : "leeft nu zonder einde",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Bin ich vom Sterben frei gemacht?",
+      "nl" : "Ben ik van de sterfelijkheid bevrijd?",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "antwoordkoor",
+      "f" : "show",
+      "de" : "In der letzten Todesnot,\r\nNirgend mich hinwende",
+      "nl" : "In de laatste doodsnood\r\nwend ik mij nergens anders heen",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Kann ich durch deine Pein und Sterben\r\nDas Himmelreich ererben?\r\nIst aller Welt Erlösung da?",
+      "nl" : "Kan ik door Uw pijn en sterven\r\nhet hemelrijk beërven?\r\nIs er verlossing voor de hele wereld?",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "antwoordkoor",
+      "f" : "show",
+      "de" : "Als zu dir, der mich versühnt,\r\nO du lieber Herre!",
+      "nl" : "dan tot U, die mij verzoent,\r\no, Gij lieve Heer!",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Du kannst vor Schmerzen zwar nichts sagen,",
+      "nl" : "Gij kunt van de pijn weliswaar niets zeggen,",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "antwoordkoor",
+      "f" : "show",
+      "de" : "Gib mir nur, was du verdient,",
+      "nl" : "Geef mij slechts, wat Gij verdiend hebt",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Doch neigest du das Haupt\r\nUnd sprichst stillschweigend: ja.",
+      "nl" : "maar Gij neigt het hoofd\r\nen zegt stilzwijgend: ja.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "antwoordkoor",
+      "f" : "show",
+      "de" : "Mehr ich nicht begehre!",
+      "nl" : "meer begeer ik niet!",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Und siehe da, der Vorhang im Tempel zerriß in zwei Stück von oben an bis unten aus. Und die Erde erbebete, und die Felsen zerrissen, und die Gräber täten sich auf, und stunden auf viel Leiber der Heiligen.",
+      "nl" : "En zie, het voorhangsel van de tempel scheurde van boven tot beneden in tweeën, en de aarde beefde, en de rotsen scheurden, en de graven gingen open en vele lichamen der ontslapen heiligen werden opgewekt.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Mein Herz, indem die ganze Welt\r\nBei Jesu Leiden gleichfalls leidet,\r\nDie Sonne sich in Trauer kleidet,\r\nDer Vorhang reißt, der Fels zerfällt,\r\nDie Erde bebt, die Gräber spalten,\r\nWeil sie den Schöpfer sehn erkalten,\r\nWas willt du deines Ortes tun?",
+      "nl" : "Mijn hart, terwijl de hele wereld\r\nbij het lijden van Jezus eveneens lijdt,\r\nde zon zich in treurnis kleedt\r\nhet voorhangsel scheurt, de rots uiteenvalt,\r\nde aarde beeft, de graven splijten,\r\nomdat zij de Schepper koud zien worden,\r\nwat wil jij in jouw plaats doen?",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Zerfließe, mein Herze, in Fluten der Zähren\r\nDem Höchsten zu Ehren!\r\nErzähle der Welt und dem Himmel die Not:\r\nDein Jesus ist tot!",
+      "nl" : "Vloei uiteen, mijn hart, in stromen van tranen\r\nom de Hoogste te eren!\r\nVertel aarde en hemel de rampspoed:\r\nje Jezus is dood!",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Die Juden aber, dieweil es der Rüsttag war, daß nicht die Leichname am Kreuze blieben den Sabbath über (denn desselbigen Sabbaths Tag war sehr groß), baten sie Pilatum, daß ihre Beine gebrochen und sie abgenommen würden. Da kamen die Kriegsknechte und brachen dem ersten die Beine und dem andern, der mit ihm gekreuziget war. Als sie aber zu Jesu kamen, da sie sahen, daß er schon gestorben war, brachen sie ihm die Beine nicht; sondern der Kriegsknechte einer eröffnete seine Seite mit einem Speer, und alsobald ging Blut und Wasser heraus. ",
+      "nl" : "De Joden dan, daar het Voorbereiding was en de lichamen niet op sabbat aan het kruis mochten blijven (want de dag van die sabbat was groot) vroegen Pilatus, dat hun benen gebroken en zij weggenomen zouden worden. De soldaten dan kwamen en braken de benen van de eerste en van de andere, die met Hem gekruisigd waren; maar toen zij bij Jezus gekomen waren en zagen, dat Hij reeds gestorven was, braken zij zijn benen niet, maar een van de soldaten stak met een speer in zijn zijde en terstond kwam er bloed en water uit. ",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Und der das gesehen hat, der hat es bezeuget, und sein Zeugnis ist wahr, und derselbige weiß, daß er die Wahrheit saget, auf daß ihr gläubet. Denn solches ist geschehen, auf daß die Schrift erfüllet würde: «Ihr sollet ihm kein Bein zerbrechen.» Und abermal spricht eine andere Schrift: «Sie werden sehen, in welchen sie gestochen haben!»",
+      "nl" : "En die het gezien heeft, heeft ervan getuigd en zijn getuigenis is waarachtig en hij weet, dat hij de waarheid spreekt, opdat ook gij gelooft. Want dit is geschied, opdat het schriftwoord zou vervuld worden: «Geen been van Hem zal verbrijzeld worden». En weder zegt een ander schriftwoord: «Zij zullen zien op Hem, die zij doorstoken hebben».",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "O hilf, Christe, Gottes Sohn,\r\nDurch dein bitter Leiden,\r\nDaß wir dir stets untertan\r\nAll Untugend meiden,",
+      "nl" : "O help ons, Christus, Zoon van God,\r\ndoor Uw bitter lijden\r\ndat wij u steeds onderdanig\r\nalle kwaad vermijden.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "golgotha",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Deinen Tod und sein Ursach\r\nFruchtbarlich bedenken,\r\nDafür, wiewohl arm und schwach,\r\nDir Dankopfer schenken.",
+      "nl" : "Dat wij uw dood en de oorzaak ervan\r\nvruchtbaar gedenken,\r\nen daarvoor, ofschoon wij arm en zwak zijn,\r\nU dankoffers schenken.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "tomb",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Darnach bat Pilatum Joseph von Arimathia, der ein Jünger Jesu war (doch heimlich, aus Furcht vor den Juden), daß er möchte abnehmen den Leichnam Jesu. Und Pilatus erlaubete es. Derowegen kam er und nahm den Leichnam Jesu herab. Es kam aber auch Nikodemus, der vormals bei der Nacht zu Jesu kommen war, und brachte Myrrhen und Aloen untereinander, bei hundert Pfunden.",
+      "nl" : "En daarna vroeg Jozef van Arimatea, een discipel van Jezus (maar in het verborgen uit vrees voor de Joden) aan Pilatus het lichaam van Jezus te mogen wegnemen; en Pilatus stond het toe. Hij kwam dan en nam zijn lichaam weg. En ook kwam Nikodemus, die de eerste maal des nachts tot Hem gekomen was, en hij bracht een mengsel mede van mirre en aloë, ongeveer honderd pond.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "tomb",
+      "rol" : "evangelist",
+      "f" : "show",
+      "de" : "Da nahmen sie den Leichnam Jesu, und bunden ihn in leinen Tücher mit Spezereien, wie die Juden pflegen zu begraben. Es war aber an der Stätte, da er gekreuziget ward, ein Garte, und im Garten ein neu Grab, in welches niemand je geleget war. Daselbst hin legten sie Jesum, um des Rüsttags willen der Juden, dieweil das Grab nahe war.",
+      "nl" : "Zij namen dan het lichaam van Jezus en wikkelden het in linnen windsels met de specerijen, zoals het bij de Joden gebruikelijk is te begraven. En er was ter plaatse, waar Hij gekruisigd was, een hof en in die hof een nieuw graf, waarin nog nooit iemand was bijgezet; daar dan legden zij Jezus neder wegens de Voorbereiding der Joden, omdat het graf dichtbij was.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "tomb",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Ruht wohl, ihr heiligen Gebeine,\r\nDie ich nun weiter nicht beweine,\r\nRuht wohl und bringt auch mich zur Ruh!",
+      "nl" : "Rust zacht, gij heilig gebeente\r\ndat ik nu verder niet beween.\r\nRust zacht en breng ook mij tot rust!",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "tomb",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Das Grab, so euch bestimmet ist\r\nUnd ferner keine Not umschließt,\r\nMacht mir den Himmel auf und schließt\r\ndie Hölle zu.",
+      "nl" : "Het graf, zoals het voor U is bestemd\r\nen dat verder geen rampspoed bevat,\r\nmaakt voor mij de hemel open\r\nen sluit de toegang tot de hel.",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "tomb",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Ach Herr, laß dein lieb Engelein\r\nAm letzten End die Seele mein\r\nIn Abrahams Schoß tragen,\r\nDen Leib in seim Schlafkämmerlein\r\nGar sanft ohn einge Qual und Pein\r\nRuhn bis am jüngsten Tage!",
+      "nl" : "Ach Heer, laat Uw lieve engeltjes\naan het eind mijn ziel\nnaar Abrahams schoot brengen!\nLaat mijn lichaam in zijn slaapkamertje\r\nheel zacht, zonder kwellingen en pijn\r\nrusten tot aan de jongste dag!",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "tomb",
+      "rol" : "koor",
+      "f" : "show",
+      "de" : "Alsdenn vom Tod erwecke mich,\r\nDaß meine Augen sehen dich\r\nIn aller Freud, o Gottes Sohn,\r\nMein Heiland und Genadenthron!\r\nHerr Jesu Christ, erhöre mich,\r\nIch will dich preisen ewiglich!",
+      "nl" : "Wek mij dan op uit de dood,\nopdat mijn ogen U mogen zien\nin alle vreugde, o Zoon van God,\nmijn Heiland en genadetroon!\r\nHeer Jezus Christus, verhoor mij\r\nik zal U eeuwig prijzen!",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "tomb",
+      "rol" : "met dank aan",
+      "f" : "show",
+      "de" : "",
+      "nl" : "Vertaling: Nederlands Bijbelgenootschap 1951 (recitatieven) en Kamerkoor Vocoza/Bram Bos (overige teksten): www.vocoza.nl",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "tomb",
+      "rol" : "met dank aan",
+      "f" : "show",
+      "de" : "",
+      "nl" : "Muziek: Choir of King's College Cambridge, Brandenburg Consort, Stephen Cleobury, Roy Goodman, John Mark Ainsley, Stephen Richardson, Catherine Bott, Michael Chance, Paul Agnew & Stephen Varcoe",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "tomb",
+      "rol" : "met dank aan",
+      "f" : "show",
+      "de" : "",
+      "nl" : "Concept: De Kathedraal",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "tomb",
+      "rol" : "met dank aan",
+      "f" : "show",
+      "de" : "",
+      "nl" : "Realisatie: Vic Mortelmans",
+      "time" : 3600
+    },
+    {
+      "h" : 1,
+      "m" : "",
+      "s" : "",
+      "scene" : "tomb",
+      "rol" : "met dank aan",
+      "f" : "show",
+      "de" : "",
+      "nl" : "Opdracht: AMDG",
+      "time" : 3600
     }
-  ]}
+  ]
+}
     </script>
   </body>
 </html>
