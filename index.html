@@ -4,23 +4,26 @@
     <title>Johannespassie</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style type="text/css">
+      html,body {
+        height: 100%;
+      }
       body {
         margin: 0px;
         background-color: black;
       }
       #monitor {
-        height: 768px;
+        height: 100%;
         overflow: hidden;
       }
       #monitor.left, #monitor.right {
-        width: 1024px;
+        width: 0px;
       }
       #monitor.center {
-        width: 1280px;
+        width: 100%;
       }
       #viewport {
-        width: 3328px;
-        height: 768px;
+        width: 100%;
+        height: 100%;
         position: relative;
         overflow: hidden;
       }
@@ -28,12 +31,13 @@
         left: 0px;
       }
       #monitor.center #viewport {
-        left: -1024px;
+        left: 0px;
       }
       #monitor.right #viewport {
-        left: -2304px;
+        left: 0px;
       }
       #viewport>div#central-monitor {
+        /* for debugging only */
         width: 1280px;
         height: 768px;
         position: absolute;
@@ -104,11 +108,11 @@
 
 
       #scenery.intro {
-        top: 0px;
+        top: -150px;
         left: 0px;
       } 
-      .intro.koor { top: 200px; left: 250px; }
-      .intro.titel { top: 200px; left: 1400px; font-size: 24pt; width: 600px !important; }
+      .intro.koor { top: 442px; left: 287px; }
+      .intro.titel { top: 200px; left: 56px; font-size: 24pt; width: 600px !important; }
       .intro.titel p.rol { display: none; }
 
       #scenery.olijven {
@@ -116,9 +120,9 @@
         left: -200px;
       }
       .olijven.evangelist { bottom: 300px; left: 250px; }
-      .olijven.jezus { bottom: 745px; left: 530px; }
-      .olijven.volk { bottom: 700px; left: 1300px; }
-      .olijven.koor { bottom: 250px; left: 1500px; }
+      .olijven.jezus { bottom: 686px; left: 279px; }
+      .olijven.volk { bottom: 700px; left: 1210px; }
+      .olijven.koor { bottom: 250px; left: 1210px; }
 
 
       #scenery.father {
@@ -133,29 +137,29 @@
         left: -200px;
       }
       .caught.evangelist { bottom: 500px; left: 250px; }  
-      .caught.koor { bottom: 250px; left: 1500px; }
+      .caught.koor { bottom: 250px; left: 1210px; }
 
 
       #scenery.palace {
-        bottom: -1228px;
-        left: -900px;
+        bottom: -1336px;
+        left: -1363px;
       }
-      .palace.dienaar { bottom: 1260px; left: 1500px; }
-      .palace.evangelist { bottom: 1400px; left: 3300px; }
-      .palace.hogepriesters { bottom: 1600px; left: 2750px; }
-      .palace.jezus { bottom: 1300px; left: 2300px; }
-      .palace.koor { bottom: 1400px; left: 3600px; }
-      .palace.petrus { bottom: 1400px; left: 1060px; }
+      .palace.dienaar { bottom: 1617px; left: 1555px; }
+      .palace.evangelist { bottom: 1785px; left: 1612px; }
+      .palace.hogepriesters { bottom: 1357px; left: 1605px; }
+      .palace.jezus { bottom: 1480px; left: 2300px; }
+      .palace.koor { bottom: 1627px; left: 1385px; }
+      .palace.petrus { bottom: 1400px; left: 1540px; }
       .palace.pilatus { bottom: 1800px; left: 2300px; }
-      .palace.slaaf { bottom: 1250px; left: 1950px; }
+      .palace.slaaf { bottom: 1378px; left: 1950px; }
       .palace.slavin { bottom: 1700px; left: 1500px; }
-      .palace.soldaten { bottom: 1800px; left: 2550px; }
-      .palace.volk { bottom: 1300px; left: 2350px; }
+      .palace.soldaten { bottom: 1800px; left: 2400px; }
+      .palace.volk { bottom: 1366px; left: 2350px; }
 
 
       #scenery.carrying {
         bottom: -150px;
-        left: -1720px;
+        left: -3517px;
       }
       .carrying.evangelist { bottom: 180px; right: 1450px; }
       .carrying.koor { bottom: 500px; left: 2000px; }
@@ -237,33 +241,33 @@
       if (window.location.hash) {
         var hash = window.location.hash.substring(1); // remove '#' character
       }
-      $(function(){
-        function perform(a) {
-          switch (a.f) {
-            case "show":
-              $('.'+a.scene+'.'+a.rol+' .rol').text(a.rol);            
-              $('.'+a.scene+'.'+a.rol+' .de').text(a.de);            
-              $('.'+a.scene+'.'+a.rol+' .nl').text(a.nl);            
-              $('.'+a.scene+'.'+a.rol).fadeIn();
-              console.log("action performed: " + JSON.stringify(a));
-              break;
-            case "hide":
-              $('.'+a.scene+'.'+a.rol).fadeOut();
-              console.log("action performed: " + JSON.stringify(a));
-              break;
-            case "move":
-              $('#scenery').attr('class',a.scene);
-              console.log("action performed: " + JSON.stringify(a));
-              break;
-            case "black":
-              $('#scenery').toggleClass('black');
-              break;
-            case "shake":
-              $('#scenery').toggleClass('shake');
-              break;
-          }
-          return;
+      function perform(a) {
+        switch (a.f) {
+          case "show":
+            $('.'+a.scene+'.'+a.rol+' .rol').text(a.rol);            
+            $('.'+a.scene+'.'+a.rol+' .de').text(a.de);            
+            $('.'+a.scene+'.'+a.rol+' .nl').text(a.nl);            
+            $('.'+a.scene+'.'+a.rol).fadeIn();
+            console.log("action performed: " + JSON.stringify(a));
+            break;
+          case "hide":
+            $('.'+a.scene+'.'+a.rol).fadeOut();
+            console.log("action performed: " + JSON.stringify(a));
+            break;
+          case "move":
+            $('#scenery').attr('class',a.scene);
+            console.log("action performed: " + JSON.stringify(a));
+            break;
+          case "black":
+            $('#scenery').toggleClass('black');
+            break;
+          case "shake":
+            $('#scenery').toggleClass('shake');
+            break;
         }
+        return;
+      }
+      $(function(){
         // hide all placeholders
         $('#viewport > div > div').hide();
         // add text fields to all placeholders
@@ -298,8 +302,8 @@
             }, 100);
           } else {
             // open windows for left and right monitor
-            window.open("#left", "left");
-            window.open("#right", "right");
+            //window.open("#left", "left");
+            //window.open("#right", "right");
             // normal flow
             audio.currentTime = hash;
             audio.play();
@@ -340,7 +344,7 @@
       }
       function scene(s) {
         // special case for debugging and showing a complete scene
-        audio.stop();
+        audio.pause();
         script.script.forEach(function(a) {
           if (a.scene == s && a.f != 'hide') {
             perform(a);
