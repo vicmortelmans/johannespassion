@@ -108,7 +108,7 @@
 
 
       #scenery.intro {
-        top: -150px;
+        bottom: -2330px;
         left: 0px;
       } 
       .intro.koor { top: 442px; left: 287px; }
@@ -116,8 +116,8 @@
       .intro.titel p.rol { display: none; }
 
       #scenery.olijven {
-        bottom: -200px;
-        left: -200px;
+        bottom: -250px;
+        left: -250px;
       }
       .olijven.evangelist { bottom: 300px; left: 250px; }
       .olijven.jezus { bottom: 686px; left: 279px; }
@@ -137,7 +137,7 @@
         left: -200px;
       }
       .caught.evangelist { bottom: 500px; left: 250px; }  
-      .caught.koor { bottom: 250px; left: 1210px; }
+      .caught.koor { bottom: 250px; left: 1190px; }
 
 
       #scenery.palace {
@@ -152,7 +152,7 @@
       .palace.petrus { bottom: 1400px; left: 1540px; }
       .palace.pilatus { bottom: 1800px; left: 2300px; }
       .palace.slaaf { bottom: 1378px; left: 1950px; }
-      .palace.slavin { bottom: 1700px; left: 1500px; }
+      .palace.slavin { bottom: 1650px; left: 1500px; }
       .palace.soldaten { bottom: 1800px; left: 2400px; }
       .palace.volk { bottom: 1366px; left: 2350px; }
 
@@ -162,28 +162,28 @@
         left: -3517px;
       }
       .carrying.evangelist { bottom: 180px; right: 1450px; }
-      .carrying.koor { bottom: 500px; left: 2000px; }
+      .carrying.koor { top: 2500px; right: 1082px; }
 
       #scenery.golgotha { 
-        bottom: -2419px;
-        left: -1830px;
+        bottom: -2500px;
+        left: -2624px;
       }
-      .golgotha.antwoordkoor { top: 400px; right: 300px; }
-      .golgotha.evangelist { top: 300px; right: 2500px; }
-      .golgotha.hogepriesters { top: 200px; right: 1300px; }
+      .golgotha.antwoordkoor { top: 400px; right: 1500px; }
+      .golgotha.evangelist { top: 300px; right: 2370px; }
+      .golgotha.hogepriesters { top: 73px; right: 1642px; }
       .golgotha.jezus { top: 400px; right: 1900px; }
-      .golgotha.koor { top: 400px; right: 700px; }
-      .golgotha.pilatus { top: 650px; right: 1500px; }
+      .golgotha.koor { top: 73px; right: 2214px; }
+      .golgotha.pilatus { top: 612px; right: 1671px; }
       .golgotha.soldaten { top: 250px; right: 1400px; }
 
 
       #scenery.tomb {
-        top: -500px;
-        right: -100px;
+        bottom: -2070px;
+        left: -3909px;
       }
       .tomb.evangelist { top: 550px; right: 500px; }
-      .tomb.koor { top: 900px; right: 1300px; }
-      .tomb.met-dank-aan { top: 1000px; right: 2800px; }
+      .tomb.koor { top: 860px; right: 1069px; }
+      .tomb.met-dank-aan { top: 550px; right: 1069px; }
       .tomb.met-dank-aan p.rol { display: none; }
 
 
@@ -278,33 +278,7 @@
         window.audio = document.createElement('audio');
         audio.src = "johannespassion.mp3";
         audio.addEventListener('loadedmetadata', function () { // firefox doesn't send canplay event
-          if (hash && !isNumeric(hash)) {
-            // left or right monitor - adapt viewport - no music - getting timestamp from main screen
-            $('#monitor').attr("class",hash);
-            // start polling time and performing events
-            setInterval(function() {
-              currentTime = opener.audio.currentTime;
-              // run through script and perform and remove all passed actions
-              script.script.forEach(function(a) {
-                if (!a.done && a.time <= currentTime) {
-                  perform(a);
-                  a.done = true;
-                  console.log("[time " + currentTime + "] Performed scene '" + a.scene + "', rol '" + a.rol + "', f '" + a.f + "'");
-                }
-              });
-              // endless loop
-              if (currentTime > 6757) {
-                script.script.forEach(function(a) {
-                  a.done = false;
-                });
-                console.log("Restarting from beginning");
-              }
-            }, 100);
-          } else {
-            // open windows for left and right monitor
-            //window.open("#left", "left");
-            //window.open("#right", "right");
-            // normal flow
+          setTimeout(function() {  
             audio.currentTime = hash;
             audio.play();
             audio.addEventListener('playing', function () {
@@ -327,17 +301,20 @@
                   audio.currentTime = 0;
                   console.log("Restarting from beginning");
                 }
-              }, 100);
-            });
-          }
-        });
+              }, 100); // setInterval
+            }); // playing
+          }, 10000); // setTimeout
+        }); // loadedmetadata
       });
       function next() {
         // move to next upcoming action (for debugging)
         for (var i = 0; i < script.script.length; i++) {
-          a = script.script[i];
+          var a = script.script[i];
           if (!a.done) {
+            perform(a);
+            a.done = true;
             audio.currentTime = a.time;
+            console.log("[time " + a.time + "] Jumped to next scene '" + a.scene + "', rol '" + a.rol + "', f '" + a.f + "'");
             break;
           }
         }
@@ -379,8 +356,8 @@ var script =
       "scene" : "intro",
       "rol" : "titel",
       "f" : "show",
-      "de" : "",
-      "nl" : "Muziek: Johannespassie - J.S. Bach",
+      "de" : "Muziek:",
+      "nl" : "Johannespassie - J.S. Bach",
       "time" : 0
     },
     {
@@ -390,8 +367,8 @@ var script =
       "scene" : "intro",
       "rol" : "titel",
       "f" : "show",
-      "de" : "",
-      "nl" : "Beelden: Taferelen uit de Passie van Christus - Hans Memling",
+      "de" : "Beelden:",
+      "nl" : "Taferelen uit de Passie van Christus - Hans Memling",
       "time" : 20
     },
     {
@@ -400,21 +377,10 @@ var script =
       "s" : 40,
       "scene" : "intro",
       "rol" : "titel",
-      "f" : "show",
-      "de" : "",
-      "nl" : "johannespassion.gelovenleren.net",
-      "time" : 40
-    },
-    {
-      "h" : 0,
-      "m" : 0,
-      "s" : 59,
-      "scene" : "intro",
-      "rol" : "titel",
       "f" : "hide",
       "de" : "",
       "nl" : "",
-      "time" : 59
+      "time" : 40
     },
     {
       "h" : 0,
@@ -3987,8 +3953,8 @@ var script =
       "scene" : "tomb",
       "rol" : "met-dank-aan",
       "f" : "show",
-      "de" : "",
-      "nl" : "Vertaling: Nederlands Bijbelgenootschap 1951 (recitatieven) en Kamerkoor Vocoza/Bram Bos (overige teksten): www.vocoza.nl",
+      "de" : "Vertaling:",
+      "nl" : "Nederlands Bijbelgenootschap 1951 (recitatieven) en Kamerkoor Vocoza/Bram Bos (overige teksten): www.vocoza.nl",
       "time" : 6687
     },
     {
@@ -3998,8 +3964,8 @@ var script =
       "scene" : "tomb",
       "rol" : "met-dank-aan",
       "f" : "show",
-      "de" : "",
-      "nl" : "Muziek: Choir of King's College Cambridge, Brandenburg Consort, Stephen Cleobury, Roy Goodman, John Mark Ainsley, Stephen Richardson, Catherine Bott, Michael Chance, Paul Agnew & Stephen Varcoe",
+      "de" : "Muziek: ",
+      "nl" : "Choir of King's College Cambridge, Brandenburg Consort, Stephen Cleobury, Roy Goodman, John Mark Ainsley, Stephen Richardson, Catherine Bott, Michael Chance, Paul Agnew & Stephen Varcoe",
       "time" : 6697
     },
     {
@@ -4009,8 +3975,8 @@ var script =
       "scene" : "tomb",
       "rol" : "met-dank-aan",
       "f" : "show",
-      "de" : "",
-      "nl" : "Concept: De Kathedraal",
+      "de" : "Concept: ",
+      "nl" : "De Kathedraal",
       "time" : 6707
     },
     {
@@ -4020,8 +3986,8 @@ var script =
       "scene" : "tomb",
       "rol" : "met-dank-aan",
       "f" : "show",
-      "de" : "",
-      "nl" : "Realisatie: Vic Mortelmans",
+      "de" : "Realisatie: ",
+      "nl" : "gelovenleren.net",
       "time" : 6717
     },
     {
@@ -4031,8 +3997,8 @@ var script =
       "scene" : "tomb",
       "rol" : "met-dank-aan",
       "f" : "show",
-      "de" : "",
-      "nl" : "Opdracht: AMDG",
+      "de" : "Opdracht: ",
+      "nl" : "AMDG",
       "time" : 6727
     },
     {
